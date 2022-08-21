@@ -1,0 +1,12 @@
+.c-card__item-link {
+    &:hover,
+    &:focus {
+        .c-card__image {
+            opacity: 0.9 !important;
+        }
+    }
+}
+
+.c-card__image {
+    transition: 0.3s all;
+}

@@ -1,11 +1,10 @@
-.c-projects__carousel {
-    .flickity-button {
-        background-color: $npm_main_primary_color;
-        color: $npm_main_white_color;
-        transition: 0.3s all;
+.c-slider {
+    .flickity-page-dot {
+        background: $primary_color;
+    }
 
-        &:hover {
-            background-color: $npm_main_dark_color;
-        }
+    .flickity-page-dot.is-selected {
+        background: $primary_color;
+        outline: solid 5px $accent_color;
     }
 }

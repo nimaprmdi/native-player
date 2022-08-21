@@ -1,20 +1,25 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import { Sidebar } from "./components/Sidebar";
+import { Navigation } from "./components/Navigation";
+import Home from "./views/Home";
 
-function App() {
+function App(): JSX.Element {
     const [asideToggle, setAsideToggle] = useState(false);
 
-    const addReminder = async (title: string) => {};
+    const handleToggle = () => {
+        setAsideToggle(!asideToggle);
+    };
 
     return (
-        <div className="App">
+        <div className="App min-h-screen">
             <section className="c-page__aside">
-                <Sidebar asideToggle={asideToggle} />
+                <Navigation asideToggle={asideToggle} />
             </section>
 
-            <section className={`c-page__content ${!asideToggle && "md:ml-14"} `}>
-                <Header onAsideToggle={(e) => setAsideToggle(!asideToggle)} />
+            <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
+                <Header onAsideToggle={handleToggle} />
+
+                <Home />
             </section>
         </div>
     );
