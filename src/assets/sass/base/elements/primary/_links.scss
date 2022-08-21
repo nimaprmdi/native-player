@@ -1,0 +1,27 @@
+/*------------------------------------*\
+  #Links
+\*------------------------------------*/
+a,
+.a {
+    color: $npm_main_black_color;
+    transition: 0.3s all;
+    -webkit-text-decoration-color: $npm_main_black_color; /* safari still uses vendor prefix */
+    text-decoration-color: $npm_main_black_color;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $accent_color;
+        text-decoration: none;
+    }
+
+    &:focus {
+        outline: 1px solid $accent_color;
+        border-radius: 1px;
+    }
+
+    &:hover,
+    &:active {
+        outline: none;
+    }
+}
