@@ -1,0 +1,11 @@
+.c-projects__carousel {
+    .flickity-button {
+        background-color: $npm_main_primary_color;
+        color: $npm_main_white_color;
+        transition: 0.3s all;
+
+        &:hover {
+            background-color: $npm_main_dark_color;
+        }
+    }
+}

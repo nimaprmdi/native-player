@@ -1,0 +1,53 @@
+/*------------------------------------*\
+  #Utils
+\*------------------------------------*/
+
+/*------------------------------------*\
+  #Colors
+\*------------------------------------*/
+.u-primary-color {
+    color: $npm_main_primary_color;
+}
+
+.u-accent-color {
+    color: $npm_main_accent_color;
+}
+
+.u-black-color {
+    color: $npm_main_black_color;
+}
+
+.u-dark-color {
+    color: $npm_main_dark_color;
+}
+
+.u-white-color {
+    color: $npm_main_white_color;
+}
+
+.u-gray-color {
+    color: $npm_main_gray_color;
+}
+
+.u-light-gray-color {
+    color: $npm_main_light_gray_color;
+}
+
+/*------------------------------------*\
+  #Container
+\*------------------------------------*/
+.u-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+/*------------------------------------*\
+  #Width
+\*------------------------------------*/
+.u-width-full {
+    width: 100%;
+}

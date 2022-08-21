@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// SETTINGS
+@import "generic/normalize";
+
+// ABSTRACTS
+@import "abstracts/abstracts";
+
+// TOOLS
+@import "tools/tools";
+
+// GENERIC
+@import "settings/fonts";
+
+// EXTERNALS
+@import "externals/externals";
+
+// BASE
+@import "base/base";
+
+// OBJECTS
+@import "objects/pages";
+
+// COMPONENTS
+@import "components/components";
+
+// UTILS
+@import "utils/utils";

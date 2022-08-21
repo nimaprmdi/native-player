@@ -1,0 +1,29 @@
+.plyr--audio {
+    .plyr__controls {
+        background: transparent;
+    }
+
+    .plyr__control {
+        color: $dark_color;
+
+        &:hover,
+        &:focus {
+            background-color: $accent_color;
+        }
+    }
+
+    .plyr__controls__item.plyr__control {
+        color: $dark_color;
+
+        &:hover,
+        &:focus {
+            color: $npm_main_white_color;
+        }
+    }
+
+    .plyr__control[data-plyr="settings"] {
+        color: $dark_color;
+
+        display: none;
+    }
+}
