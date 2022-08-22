@@ -5,8 +5,19 @@ import Slider from "../components/Slider";
 import CardCaption from "../components/common/cards/CardCaption";
 import CardPinkRibbon from "../components/common/cards/CardPinkRibbon";
 import GridTitle from "../components/common/GridTitle";
+import VideoCategory from "../components/common/VideoCategory";
+import Advertise from "../components/common/Advertise";
+import Plans from "../components/common/Plans";
+import { useRef, useMemo } from "react";
+import Plyr, { APITypes } from "plyr-react";
 
-const Home = (): JSX.Element => {
+interface HomeProps {
+    video?: JSX.Element;
+}
+
+const Home = ({ video }: HomeProps): JSX.Element => {
+    const ref = useRef<APITypes>(null);
+
     return (
         <section className="c-home w-full pt-14 pb-40 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-3/5 mt-">
@@ -30,7 +41,13 @@ const Home = (): JSX.Element => {
                 </GridMd>
             </div>
             <div className="w-full desktop:w-2/5">
-                <Sidebar />
+                <Sidebar>
+                    <div className="w-full h-full bg-dark">{video}</div>
+
+                    <VideoCategory />
+                    <Advertise />
+                    <Plans />
+                </Sidebar>
             </div>
 
             <div className="w-full">

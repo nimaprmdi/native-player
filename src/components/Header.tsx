@@ -1,33 +1,11 @@
-import React, { useRef } from "react";
-
-import { useMemo } from "react";
-import Plyr, { APITypes } from "plyr-react";
 import { Icon } from "@iconify/react";
 
 interface HeaderProps {
     onAsideToggle: () => void;
+    audio?: JSX.Element;
 }
 
-const Header = ({ onAsideToggle }: HeaderProps): JSX.Element => {
-    const ref = useRef<APITypes>(null);
-
-    const player = useMemo(() => {
-        return (
-            <Plyr
-                ref={ref}
-                source={{
-                    type: "audio",
-                    sources: [
-                        {
-                            src: "http://nimapourmohammadi.com/wp-content/uploads/2022/08/amb_bigfoot_backing_part_02_06.mp3",
-                            provider: "html5",
-                        },
-                    ],
-                }}
-            />
-        );
-    }, []);
-
+const Header = ({ onAsideToggle, audio }: HeaderProps): JSX.Element => {
     return (
         <header className="w-full h-16 bg-primary justify-center items-center fixed z-40 md:relative flex bottom-0">
             <div className="md:w-2/6 hidden md:block">
@@ -40,7 +18,7 @@ const Header = ({ onAsideToggle }: HeaderProps): JSX.Element => {
                     <span className="w-5 h-0.252 bg-white block my-1 mx-0"></span>
                 </button>
             </div>
-            <div className="md:w-2/6">{player}</div>
+            <div className="md:w-2/6">{audio}</div>
 
             <div className="md:w-2/6 flex justify-end">
                 <button className="items-center mr-2 md:mr-8 hidden md:flex o-btn--ghost">
