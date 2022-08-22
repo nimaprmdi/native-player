@@ -15,6 +15,16 @@ const Radio = (): JSX.Element => {
 
                 <GridLarge>
                     <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
+                    <CardRibbon />
                 </GridLarge>
             </div>
 
@@ -27,6 +37,7 @@ const Radio = (): JSX.Element => {
             </div>
 
             <div className="w-full">
+                <GridTitle customClass="mt-6" />
                 <Carousel>
                     <CardPinkRibbon />
                     <CardPinkRibbon />
