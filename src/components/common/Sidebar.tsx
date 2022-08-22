@@ -1,28 +1,32 @@
-import React, { useRef } from "react";
+import { useRef, useMemo } from "react";
 import Plyr, { APITypes } from "plyr-react";
+import { Icon } from "@iconify/react";
 import google from "../../assets/images/externals/google.png";
 import apple from "../../assets/images/externals/apple.png";
-import { Icon } from "@iconify/react";
 
 const Sidebar = (): JSX.Element => {
     const ref = useRef<APITypes>(null);
 
+    const video = useMemo(() => {
+        return (
+            <Plyr
+                ref={ref}
+                source={{
+                    type: "video",
+                    sources: [
+                        {
+                            src: "http://nimapourmohammadi.com/wp-content/uploads/2022/08/dodge-tool.mp4",
+                            provider: "html5",
+                        },
+                    ],
+                }}
+            />
+        );
+    }, []);
+
     return (
         <aside className="w-full desktop:pr-10 desktop:pl-6">
-            <div className="w-full h-full bg-dark">
-                <Plyr
-                    ref={ref}
-                    source={{
-                        type: "video",
-                        sources: [
-                            {
-                                src: "http://nimapourmohammadi.com/wp-content/uploads/2022/08/dodge-tool.mp4",
-                                provider: "html5",
-                            },
-                        ],
-                    }}
-                />
-            </div>
+            <div className="w-full h-full bg-dark">{video}</div>
 
             <div className="w-full mt-6 bg-dark rounded">
                 <div className="w-full h-16 flex justify-start items-center hover:bg-accent cursor-pointer transition duration-150 ease-out border-b border-gray-500">
