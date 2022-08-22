@@ -25,3 +25,11 @@ a,
         outline: none;
     }
 }
+
+.a--secondary {
+    &:hover,
+    &:focus,
+    &:active {
+        color: $npm_main_white_color;
+    }
+}

@@ -20,3 +20,27 @@ input[type="submit"] {
         box-shadow: none;
     }
 }
+
+.o-btn--secondary {
+    background-color: $accent_color;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: $npm_main_button_color;
+    }
+}
+
+.o-btn--ghost {
+    background-color: transparent;
+    border: 1px solid $dark_color;
+    color: $dark_color;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: $npm_main_button_color;
+        border: 1px solid transparent;
+        color: $npm_main_white_color;
+    }
+}

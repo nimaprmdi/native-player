@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Header from "./components/Header";
-import { Navigation } from "./components/Navigation";
 import Home from "./views/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Radio from "./views/Radio";
+import Browse from "./views/Browse";
+import { Navigation } from "./components/Navigation";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NotFound from "./views/NotFound";
 
 function App(): JSX.Element {
     const [asideToggle, setAsideToggle] = useState(false);
@@ -25,6 +27,8 @@ function App(): JSX.Element {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/radio" element={<Radio />} />
+                        <Route path="/browse" element={<Browse />} />
+                        <Route path="/404" element={<NotFound />} />
                     </Routes>
                 </BrowserRouter>
             </section>
