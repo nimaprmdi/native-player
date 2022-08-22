@@ -15,7 +15,7 @@ const Slider = ({ customClass }: SliderProps): JSX.Element => {
     };
 
     return (
-        <Flickity options={flickityOptions} className={`c-slider w-full desktop:h-2/5 desktop:h-147.5 ${customClass}`}>
+        <Flickity options={flickityOptions} className={`c-slider w-full desktop:h-147.5 ${customClass}`}>
             <div className="w-full mx-10">
                 <div className="relative">
                     <img className="w-full h-2/5 desktop:h-147.5 rounded object-cover" src={rihana} alt="rihana" />
