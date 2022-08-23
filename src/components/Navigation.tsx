@@ -5,7 +5,7 @@ interface SidebarProps {
     asideToggle: boolean;
 }
 
-export const Sidebar = ({ asideToggle }: SidebarProps) => {
+export const Navigation = ({ asideToggle }: SidebarProps): JSX.Element => {
     return (
         <aside
             className={`${

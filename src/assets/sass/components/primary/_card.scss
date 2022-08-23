@@ -1,0 +1,17 @@
+.c-card__item-link {
+    &:hover,
+    &:focus {
+        .c-card__item {
+            opacity: 0.9;
+        }
+
+        .c-card__item-cta {
+            color: $accent_color;
+        }
+    }
+}
+
+.c-card__item,
+.c-card__item-cta {
+    transition: 0.3s all;
+}
