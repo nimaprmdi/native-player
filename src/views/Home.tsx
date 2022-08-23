@@ -8,16 +8,12 @@ import GridTitle from "../components/common/GridTitle";
 import VideoCategory from "../components/common/VideoCategory";
 import Advertise from "../components/common/Advertise";
 import Plans from "../components/common/Plans";
-import { useRef, useMemo } from "react";
-import Plyr, { APITypes } from "plyr-react";
 
 interface HomeProps {
     video?: JSX.Element;
 }
 
 const Home = ({ video }: HomeProps): JSX.Element => {
-    const ref = useRef<APITypes>(null);
-
     return (
         <section className="c-home w-full pt-14 pb-40 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-3/5 mt-">

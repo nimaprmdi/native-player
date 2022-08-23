@@ -11,6 +11,7 @@
         "@types/react": "^18.0.17",
         "@types/react-dom": "^18.0.6",
         "flickity": "^3.0.0",
+        "mapbox-gl": "^2.9.2",
         "node-sass": "^7.0.1",
         "plyr-react": "^5.1.0",
         "react": "^18.2.0",
@@ -48,6 +49,7 @@
     },
     "devDependencies": {
         "@iconify/react": "^3.2.2",
+        "@types/mapbox-gl": "^2.7.5",
         "tailwindcss": "^3.1.8"
     }
 }

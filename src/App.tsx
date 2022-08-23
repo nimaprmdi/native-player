@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./views/NotFound";
 import Blog from "./views/Blog";
 import Plyr, { APITypes } from "plyr-react";
+import Contact from "./views/Contact";
 
 function App(): JSX.Element {
     const [asideToggle, setAsideToggle] = useState(false);
@@ -68,6 +69,7 @@ function App(): JSX.Element {
                         <Route path="/browse" element={<Browse />} />
                         <Route path="/404" element={<NotFound />} />
                         <Route path="/blog" element={<Blog />} />
+                        <Route path="/contact" element={<Contact />} />
                     </Routes>
                 </BrowserRouter>
             </section>
