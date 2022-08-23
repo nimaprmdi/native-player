@@ -37,7 +37,7 @@ const Home = ({ video }: HomeProps): JSX.Element => {
                 </GridMd>
             </div>
             <div className="w-full desktop:w-2/5">
-                <Sidebar>
+                <Sidebar className="pl-8">
                     <div className="w-full h-full bg-dark">{video}</div>
 
                     <VideoCategory />
