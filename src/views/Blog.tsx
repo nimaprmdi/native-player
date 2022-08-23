@@ -14,7 +14,7 @@ const Blog = () => {
             </div>
 
             <div className="w-full desktop:w-4/12 order-3 desktop:order-2 mt-16 px-2 desktop:px-0">
-                <Sidebar>
+                <Sidebar className="desktop:pl-6">
                     <RecentPosts />
                     <TopSongs className="mt-8" />
                 </Sidebar>

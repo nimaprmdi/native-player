@@ -10,7 +10,7 @@ const Radio = (): JSX.Element => {
     return (
         <section className="c-radio w-full pt-14 pb-40 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full mb-8">
-                <GridTitle />
+                <GridTitle title="New Releases" />
                 <Cateogory />
 
                 <GridLarge>
@@ -29,7 +29,7 @@ const Radio = (): JSX.Element => {
             </div>
 
             <div className="w-full">
-                <GridTitle />
+                <GridTitle title="New Releases" />
 
                 <GridLarge>
                     <Card />
@@ -37,7 +37,7 @@ const Radio = (): JSX.Element => {
             </div>
 
             <div className="w-full">
-                <GridTitle customClass="mt-6" />
+                <GridTitle title="New Releases" customClass="mt-6" />
                 <Carousel>
                     <CardPinkRibbon />
                     <CardPinkRibbon />

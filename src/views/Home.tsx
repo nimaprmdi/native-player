@@ -19,7 +19,7 @@ const Home = ({ video }: HomeProps): JSX.Element => {
             <div className="w-full desktop:w-3/5 mt-">
                 <Slider />
 
-                <GridTitle customClass="mt-16" />
+                <GridTitle title="New Releases" customClass="mt-16" />
 
                 <GridMd>
                     <CardCaption />
@@ -28,7 +28,7 @@ const Home = ({ video }: HomeProps): JSX.Element => {
                     <CardCaption />
                 </GridMd>
 
-                <GridTitle customClass="mt-12" />
+                <GridTitle title="New Releases" customClass="mt-12" />
 
                 <GridMd>
                     <CardCaption />
@@ -47,7 +47,7 @@ const Home = ({ video }: HomeProps): JSX.Element => {
             </div>
 
             <div className="w-full">
-                <GridTitle customClass="mt-6" />
+                <GridTitle title="New Releases" customClass="mt-6" />
 
                 <Carousel>
                     <CardPinkRibbon />

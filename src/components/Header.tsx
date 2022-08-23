@@ -18,7 +18,7 @@ const Header = ({ onAsideToggle, audio }: HeaderProps): JSX.Element => {
                     <span className="w-5 h-0.252 bg-white block my-1 mx-0"></span>
                 </button>
             </div>
-            <div className="md:w-2/6">{audio}</div>
+            <div className="md:w-2/3 desktop:w-2/6">{audio}</div>
 
             <div className="md:w-2/6 flex justify-end">
                 <button className="items-center mr-2 md:mr-8 hidden md:flex o-btn--ghost">

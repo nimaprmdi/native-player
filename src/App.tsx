@@ -9,6 +9,7 @@ import NotFound from "./views/NotFound";
 import Blog from "./views/Blog";
 import Plyr, { APITypes } from "plyr-react";
 import Contact from "./views/Contact";
+import Single from "./views/Single";
 
 function App(): JSX.Element {
     const [asideToggle, setAsideToggle] = useState(false);
@@ -70,6 +71,7 @@ function App(): JSX.Element {
                         <Route path="/404" element={<NotFound />} />
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/single" element={<Single video={video} />} />
                     </Routes>
                 </BrowserRouter>
             </section>

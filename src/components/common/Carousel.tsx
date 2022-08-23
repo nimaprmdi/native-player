@@ -23,7 +23,7 @@ const Carousel = ({ children }: CarouselProps): JSX.Element => {
 
     return (
         <section>
-            <Flickity options={flickityOptions} className={`c-slider w-full h-60 mt-6 px-2`}>
+            <Flickity options={flickityOptions} className={`c-slider w-full h-80 mt-6 px-2`}>
                 {children}
             </Flickity>
         </section>
