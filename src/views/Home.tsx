@@ -11,13 +11,14 @@ import Plans from "../components/common/Plans";
 
 interface HomeProps {
     video?: JSX.Element;
+    token: string;
 }
 
-const Home = ({ video }: HomeProps): JSX.Element => {
+const Home = ({ video, token }: HomeProps): JSX.Element => {
     return (
         <section className="c-home w-full pt-14 pb-40 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-3/5 mt-">
-                <Slider />
+                <Slider token={token} />
 
                 <GridTitle title="New Releases" customClass="mt-16" />
 

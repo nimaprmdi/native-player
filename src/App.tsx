@@ -1,17 +1,66 @@
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
+import Plyr, { APITypes } from "plyr-react";
 import Header from "./components/Header";
 import Home from "./views/Home";
 import Radio from "./views/Radio";
 import Browse from "./views/Browse";
-import { Navigation } from "./components/Navigation";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./views/NotFound";
 import Blog from "./views/Blog";
-import Plyr, { APITypes } from "plyr-react";
 import Contact from "./views/Contact";
 import Single from "./views/Single";
+import axios from "axios";
+import { Navigation } from "./components/Navigation";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Artists from "./models/Artists";
+import config from "./services/config.json";
 
 function App(): JSX.Element {
+    const [token, setToken] = useState("");
+    const [searchKey, setSearchKey] = useState("");
+    const [artists, setArtists] = useState<Artists[]>([]);
+
+    useEffect(() => {
+        const hash: string = window.location.hash;
+        let token: string | undefined | null = window.localStorage.getItem("token");
+
+        if (!token && hash) {
+            token = hash
+                .substring(1)
+                .split("&")
+                .find((elem) => elem.startsWith("access_token"))
+                ?.split("=")[1];
+
+            console.log(token);
+
+            window.location.hash = "";
+            window.localStorage.setItem("token", token!);
+        }
+
+        setToken(token!);
+    }, []);
+
+    const logout = () => {
+        setToken("");
+        window.localStorage.removeItem("token");
+    };
+
+    const searchArtist = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const { data } = await axios.get(`${config.apiUrl}/search`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                q: searchKey,
+                type: "artist",
+            },
+        });
+
+        setArtists(data.artists?.items);
+    };
+
+    /** */
     const [asideToggle, setAsideToggle] = useState(false);
 
     const handleToggle = () => {
@@ -61,11 +110,20 @@ function App(): JSX.Element {
             </section>
 
             <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
-                <Header audio={player} onAsideToggle={handleToggle} />
+                <Header
+                    logout={logout}
+                    searchArtist={searchArtist}
+                    setSearchKey={setSearchKey}
+                    token={token}
+                    audio={player}
+                    onAsideToggle={handleToggle}
+                    artists={artists}
+                    setArtists={setArtists}
+                />
 
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<Home video={video} />} />
+                        <Route path="/" element={<Home token={token} video={video} />} />
                         <Route path="/radio" element={<Radio />} />
                         <Route path="/browse" element={<Browse />} />
                         <Route path="/404" element={<NotFound />} />
