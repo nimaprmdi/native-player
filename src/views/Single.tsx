@@ -35,8 +35,8 @@ export default function Single({ video }: SingleProps) {
                 <GridTitle title="New Releases" customClass="mt-6" readMore={false} />
 
                 <Carousel>
-                    <CardPinkRibbon />
-                    <CardPinkRibbon />
+                    {/* <CardPinkRibbon />
+                    <CardPinkRibbon /> */}
                 </Carousel>
             </div>
         </section>

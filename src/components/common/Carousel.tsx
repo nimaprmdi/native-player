@@ -1,11 +1,8 @@
-import React from "react";
 import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
-import CardPinkRibbon from "./cards/CardPinkRibbon";
-import GridTitle from "./GridTitle";
 
 interface CarouselProps {
-    children?: JSX.Element | JSX.Element[];
+    children?: JSX.Element[] | JSX.Element;
 }
 
 interface FlickityOptions {

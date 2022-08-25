@@ -12,6 +12,9 @@ import Plans from "../components/common/Plans";
 import spotifyService from "../services/SpotifyServices";
 import Recommendation from "../models/Recommendation";
 import SongCategory from "../models/SongCategory";
+import FeaturedAlbums from "../models/FeturedAlbums";
+import CardRibbon from "../components/common/cards/CardRibbon";
+import Card from "../components/common/cards/Card";
 
 interface HomeProps {
     video?: JSX.Element;
@@ -21,6 +24,7 @@ interface HomeProps {
 const Home = ({ video, token }: HomeProps): JSX.Element => {
     const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
     const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
+    const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
 
     const getRecommendedTracks = async () => {
         const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
@@ -32,9 +36,15 @@ const Home = ({ video, token }: HomeProps): JSX.Element => {
         setPlayListsByCats(topItems);
     };
 
+    const getFeaturedAlbums = async () => {
+        const featuredAlbums = await spotifyService.getFeaturedAlbums(token);
+        setFeaturedAlbums(featuredAlbums);
+    };
+
     useEffect(() => {
         token && getRecommendedTracks();
         token && getPlayListsByCats();
+        token && getFeaturedAlbums();
     }, [token]);
 
     return (
@@ -87,11 +97,18 @@ const Home = ({ video, token }: HomeProps): JSX.Element => {
             </div>
 
             <div className="w-full">
-                <GridTitle title="New Releases" customClass="mt-6" />
+                <GridTitle title="Featured Albums" customClass="mt-6" />
 
                 <Carousel>
-                    <CardPinkRibbon />
-                    <CardPinkRibbon />
+                    {featuredAlbums.albums.map((album, index) => {
+                        return (
+                            <CardPinkRibbon
+                                key={`Featured-Albums-${index}`}
+                                image={album.images[0].url}
+                                title={album.name}
+                            />
+                        );
+                    })}
                 </Carousel>
             </div>
         </section>

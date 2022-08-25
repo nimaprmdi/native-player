@@ -45,6 +45,17 @@ class SpotifyServices {
         return data;
     };
 
+    getFeaturedAlbums = async (token: string) => {
+        const { data } = await this.http.get("/albums", {
+            headers: this.getHeaders(token),
+            params: {
+                ids: "4CJz7SiuYgxGPQSk4RMXBc,6CIslPQSknp875cigkhKJC,7wHRbv2KffwwK0sSZu7YI5,5YBZo3FqPKyuFKJcn8e7js,0nSJya8Yd1OXtXiQjkXZLO,5xjXARHTm4YSmQPDDFZO0W,3xp9A0kXzxqUztRASTjVD5,57bABnvvPfNhBQRI70dqlU,3yyMpOkLtbcbVJFzEESLN0,0MxnDPoKo4ohNSdnuZpIxg",
+            },
+        });
+
+        return data;
+    };
+
     CLIENT_ID = "96757c15e2c14a3d8b9e199048d02fbc";
     REDIRECT_URI = "http://localhost:3000";
     AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";

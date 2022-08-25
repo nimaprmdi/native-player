@@ -39,10 +39,10 @@ const Browse = () => {
             <div className="w-full">
                 <GridTitle title="New Releases" customClass="mt-6" />
                 <Carousel>
+                    {/* <CardPinkRibbon />
                     <CardPinkRibbon />
                     <CardPinkRibbon />
-                    <CardPinkRibbon />
-                    <CardPinkRibbon />
+                    <CardPinkRibbon /> */}
                 </Carousel>
             </div>
         </section>
