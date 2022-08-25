@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import Flickity from "react-flickity-component";
-import rihana from "../assets/images/rihana.jpg";
-import FeaturedPlayLists, { TrackItems } from "../models/FeaturedPlayLists";
-import "flickity/css/flickity.css";
+import FeaturedPlayLists from "../models/FeaturedPlayLists";
 import spotifyService from "../services/SpotifyServices";
+import "flickity/css/flickity.css";
 
 interface SliderProps {
     customClass?: string;
@@ -30,7 +29,7 @@ const Slider = ({ customClass, token }: SliderProps): JSX.Element => {
 
     return (
         <Flickity options={flickityOptions} className={`c-slider w-full desktop:h-147.5 relative ${customClass}`}>
-            <span className="c-badge absolute top-5 left-6 z-30">{featuredPlayList.name}</span>
+            <span className="c-badge absolute top-5 left-6 z-20">{featuredPlayList.name} By NimaPm</span>
 
             {tracks.items.map((playListItem, indexNumber) => {
                 return (
@@ -39,17 +38,13 @@ const Slider = ({ customClass, token }: SliderProps): JSX.Element => {
                             <div className="relative">
                                 <img
                                     className="w-full h-2/5 desktop:h-147.5 rounded object-cover"
-                                    src={rihana}
+                                    src={playListItem.track.album.images[0].url}
                                     alt="rihana"
                                 />
 
                                 <span className="c-badge c-badge--accent absolute bottom-6 left-6 text-black">
                                     <>
-                                        {playListItem.track.name}
-
-                                        {playListItem.track.album.name}
-
-                                        {console.log(playListItem.track.album)}
+                                        {playListItem.track.name} from {playListItem.track.album.name}
                                     </>
                                 </span>
                             </div>

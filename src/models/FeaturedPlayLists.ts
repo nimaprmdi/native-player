@@ -9,9 +9,7 @@ export interface TrackItems {
     track: {
         album: {
             id: string;
-            images: {
-                url: string[];
-            };
+            images: TrackImages[];
             name: string;
         };
         id: string;
@@ -20,4 +18,8 @@ export interface TrackItems {
             name: string;
         };
     };
+}
+
+export interface TrackImages {
+    url: string;
 }

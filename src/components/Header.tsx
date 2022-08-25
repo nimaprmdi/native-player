@@ -40,7 +40,8 @@ const Header = ({
                 //     )}
                 // </div>
 
-                <CardCaption key={index} />
+                // <CardCaption key={index} />
+                <></>
             );
         });
 

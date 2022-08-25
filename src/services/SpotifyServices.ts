@@ -1,22 +1,47 @@
 import axios from "axios";
 import FeaturedPlayLists from "../models/FeaturedPlayLists";
+import Recommendation from "../models/Recommendation";
+import SongCategory from "../models/SongCategory";
 
 class SpotifyServices {
     http = axios.create({
         baseURL: "https://api.spotify.com/v1/",
     });
 
+    private getHeaders = (token: string) => {
+        return {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        };
+    };
+
     getFeaturedPlayList = async (token: string) => {
         const { data } = await this.http.get<FeaturedPlayLists>("/playlists/0tx9dKlMbMMyxSxt7yexXX", {
-            headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
+            headers: this.getHeaders(token),
+        });
+        return data;
+    };
+
+    getRecommendedTracks = async (token: string) => {
+        const { data } = await this.http.get<Recommendation>("/recommendations", {
+            headers: this.getHeaders(token),
+            params: {
+                seed_artists: "2CIMQHirSU0MQqyYHq0eOx",
+                seed_genres: "edm_dance",
+                seed_tracks: "7cbsuVHDGO1QWG15TUOOtp",
             },
         });
+        return data;
+    };
 
-        console.log(data);
-
+    getPlayListsByCat = async (token: string) => {
+        const { data } = await this.http.get<SongCategory>("browse/categories/edm_dance/playlists", {
+            headers: this.getHeaders(token),
+            params: {
+                limit: 10,
+            },
+        });
         return data;
     };
 
