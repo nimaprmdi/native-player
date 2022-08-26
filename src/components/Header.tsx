@@ -5,6 +5,7 @@ import spotifyService from "../services/SpotifyServices";
 import SearchModal from "./common/SearchModal";
 import GridMd from "./common/GridMd";
 import CardCaption from "./common/cards/CardCaption";
+import SpotifyPlayer from "react-spotify-web-playback";
 
 interface HeaderProps {
     onAsideToggle: () => void;

@@ -3,6 +3,7 @@ import "flickity/css/flickity.css";
 
 interface CarouselProps {
     children?: JSX.Element[] | JSX.Element;
+    classname?: string;
 }
 
 interface FlickityOptions {
@@ -11,7 +12,7 @@ interface FlickityOptions {
     cellAlign?: string;
 }
 
-const Carousel = ({ children }: CarouselProps): JSX.Element => {
+const Carousel = ({ children, classname }: CarouselProps): JSX.Element => {
     const flickityOptions: FlickityOptions = {
         wrapAround: false,
         pageDots: false,
@@ -19,7 +20,7 @@ const Carousel = ({ children }: CarouselProps): JSX.Element => {
     };
 
     return (
-        <section>
+        <section className={classname}>
             <Flickity options={flickityOptions} className={`c-slider w-full h-80 mt-6 px-2`}>
                 {children}
             </Flickity>

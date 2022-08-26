@@ -17,7 +17,7 @@ class SpotifyServices {
     };
 
     getFeaturedPlayList = async (token: string) => {
-        const { data } = await this.http.get<FeaturedPlayLists>("/playlists/0tx9dKlMbMMyxSxt7yexXX", {
+        const { data } = await this.http.get<FeaturedPlayLists>("/playlists/1bAxUEAiPtRRMsnHbkz7vP", {
             headers: this.getHeaders(token),
         });
         return data;

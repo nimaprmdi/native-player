@@ -15,13 +15,13 @@ import SongCategory from "../models/SongCategory";
 import FeaturedAlbums from "../models/FeturedAlbums";
 import CardRibbon from "../components/common/cards/CardRibbon";
 import Card from "../components/common/cards/Card";
+import Video from "../components/common/Video";
 
 interface HomeProps {
-    video?: JSX.Element;
     token: string;
 }
 
-const Home = ({ video, token }: HomeProps): JSX.Element => {
+const Home = ({ token }: HomeProps): JSX.Element => {
     const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
     const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
     const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
@@ -88,18 +88,17 @@ const Home = ({ video, token }: HomeProps): JSX.Element => {
             </div>
             <div className="w-full desktop:w-2/5">
                 <Sidebar className="pl-8">
-                    <div className="w-full h-full bg-dark">{video}</div>
+                    <Video />
 
-                    <VideoCategory />
                     <Advertise />
                     <Plans />
                 </Sidebar>
             </div>
 
             <div className="w-full">
-                <GridTitle title="Featured Albums" customClass="mt-6" />
+                <GridTitle title="Featured Albums" customClass="mt-10 pl-4 pr-12" />
 
-                <Carousel>
+                <Carousel classname="pr-10">
                     {featuredAlbums.albums.map((album, index) => {
                         return (
                             <CardPinkRibbon

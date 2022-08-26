@@ -69,23 +69,6 @@ function App(): JSX.Element {
 
     const ref = useRef<APITypes>(null);
 
-    const video = useMemo(() => {
-        return (
-            <Plyr
-                ref={ref}
-                source={{
-                    type: "video",
-                    sources: [
-                        {
-                            src: "http://nimapourmohammadi.com/wp-content/uploads/2022/08/dodge-tool.mp4",
-                            provider: "html5",
-                        },
-                    ],
-                }}
-            />
-        );
-    }, []);
-
     const player = useMemo(() => {
         return (
             <Plyr
@@ -123,13 +106,13 @@ function App(): JSX.Element {
 
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<Home token={token} video={video} />} />
+                        <Route path="/" element={<Home token={token} />} />
                         <Route path="/radio" element={<Radio />} />
                         <Route path="/browse" element={<Browse />} />
                         <Route path="/404" element={<NotFound />} />
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/contact" element={<Contact />} />
-                        <Route path="/single" element={<Single video={video} />} />
+                        <Route path="/single" element={<Single />} />
 
                         <Route path="*" element={<Navigate replace to="/404" />} />
                     </Routes>
