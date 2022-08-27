@@ -1,6 +1,9 @@
 export default interface Artists {
-    id: number;
+    id: string;
     images: ArtistProps[];
+    name?: string;
+    uri?: string;
+    href: string;
 }
 
 interface ArtistProps {

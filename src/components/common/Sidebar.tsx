@@ -4,7 +4,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ className, children }: SidebarProps): JSX.Element => {
-    return <aside className={`w-full desktop:pr-10 ${className}`}>{children}</aside>;
+    return <aside className={`c-sidebar w-full desktop:pr-10 ${className}`}>{children}</aside>;
 };
 
 export default Sidebar;

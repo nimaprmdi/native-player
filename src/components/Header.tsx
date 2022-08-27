@@ -33,16 +33,13 @@ const Header = ({
     const renderArtist = () => {
         const artistSearch = artists.map((artist, index) => {
             return (
-                // <div key={artist.id}>
-                //     {artist.images.length ? (
-                //         <img className="w-8 h-8" src={artist.images[0].url} alt="Image" />
-                //     ) : (
-                //         <div className="w-full h-full bg-accent">No Images</div>
-                //     )}
-                // </div>
-
-                // <CardCaption key={index} />
-                <></>
+                <CardCaption
+                    key={index}
+                    id={artist.id}
+                    readMore={false}
+                    name={artist.name}
+                    image={artist.images[0].url}
+                />
             );
         });
 
@@ -117,7 +114,7 @@ const Header = ({
                                 </div>
                             </form>
 
-                            {artists.length > 0 && <GridMd>{renderArtist()}</GridMd>}
+                            {artists.length > 0 && <GridMd className="gap-8 gap-y-12">{renderArtist()}</GridMd>}
                         </>
                     ) : (
                         <div className="flex w-full">

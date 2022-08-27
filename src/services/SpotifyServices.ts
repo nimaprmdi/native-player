@@ -56,6 +56,24 @@ class SpotifyServices {
         return data;
     };
 
+    logOutSpotify = (setToken: Function) => {
+        setToken("");
+        window.localStorage.removeItem("token");
+    };
+
+    searchArtist = async (e: React.FormEvent, token: string, searchKey: string, setArtists: Function) => {
+        e.preventDefault();
+        const { data } = await this.http.get("/search", {
+            headers: this.getHeaders(token),
+            params: {
+                q: searchKey,
+                type: "artist",
+            },
+        });
+
+        setArtists(data.artists?.items);
+    };
+
     CLIENT_ID = "96757c15e2c14a3d8b9e199048d02fbc";
     REDIRECT_URI = "http://localhost:3000";
     AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";

@@ -29,7 +29,9 @@ const Slider = ({ customClass, token }: SliderProps): JSX.Element => {
 
     return (
         <Flickity options={flickityOptions} className={`c-slider w-full desktop:h-147.5 relative ${customClass}`}>
-            <span className="c-badge absolute top-5 left-6 z-20">{featuredPlayList.name} By NimaPm</span>
+            <span className="c-badge absolute top-5 -left-1 desktop:left-6 z-20">
+                {featuredPlayList.name} By NimaPm
+            </span>
 
             {tracks.items.map((playListItem, indexNumber) => {
                 return (
@@ -42,7 +44,7 @@ const Slider = ({ customClass, token }: SliderProps): JSX.Element => {
                                     alt="rihana"
                                 />
 
-                                <span className="c-badge c-badge--accent absolute bottom-6 left-6 text-black">
+                                <span className="c-badge c-badge--accent absolute bottom-6 -left-1 desktop:left-6 text-black">
                                     <>
                                         {playListItem.track.name} from {playListItem.track.album.name}
                                     </>

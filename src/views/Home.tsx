@@ -48,7 +48,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
     }, [token]);
 
     return (
-        <section className="c-home w-full pt-14 pb-40 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
+        <section className="c-home w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-3/5 mt-">
                 <Slider token={token} />
                 <GridTitle title="Recommended Songs" customClass="mt-16" />
@@ -59,6 +59,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
                             return (
                                 index < 4 && (
                                     <CardCaption
+                                        id={track.id}
                                         key={`recommendedTracks-track-item-${index}`}
                                         image={track.album.images[0].url}
                                     />
@@ -77,6 +78,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
                                 return (
                                     index < 4 && (
                                         <CardCaption
+                                            id={item.id}
                                             key={`recommendedTracks-track-item-${index}`}
                                             image={item.images[0].url}
                                         />
@@ -87,7 +89,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
                 </GridMd>
             </div>
             <div className="w-full desktop:w-2/5">
-                <Sidebar className="pl-8">
+                <Sidebar className="px-2 desktop:px-0 desktop:pl-8">
                     <Video />
 
                     <Advertise />
@@ -98,7 +100,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
             <div className="w-full">
                 <GridTitle title="Featured Albums" customClass="mt-10 pl-4 pr-12" />
 
-                <Carousel classname="pr-10">
+                <Carousel classname="desktop:pr-10">
                     {featuredAlbums.albums.map((album, index) => {
                         return (
                             <CardPinkRibbon

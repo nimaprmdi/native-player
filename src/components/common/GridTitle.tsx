@@ -7,9 +7,9 @@ interface GridTitleProps {
 
 const GridTitle = ({ title, customClass, readMore = true, badge = true }: GridTitleProps) => {
     return (
-        <div className={`w-full flex flex-wrap md:flex-nowrap items-center justify-between mb-6 ${customClass}`}>
-            <div className="w-full md:w-max desktop:w-full flex items-center justify-start">
-                <h2 className="mr-2 text-h2">{title}</h2>
+        <div className={`w-full flex flex-wrap md:flex-nowrap items-center justify-between mb-6 px-2 ${customClass}`}>
+            <div className="w-full md:w-max desktop:w-full flex flex-wrap gap-4 items-center justify-start">
+                <h2 className="mr-2 text-h2 leading-9">{title}</h2>
 
                 {badge && <span className="c-badge">New</span>}
             </div>

@@ -13,11 +13,13 @@ import { Navigation } from "./components/Navigation";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Artists from "./models/Artists";
 import config from "./services/config.json";
+import spotifyService from "./services/SpotifyServices";
 
 function App(): JSX.Element {
     const [token, setToken] = useState("");
     const [searchKey, setSearchKey] = useState("");
     const [artists, setArtists] = useState<Artists[]>([]);
+    const [asideToggle, setAsideToggle] = useState(false);
 
     useEffect(() => {
         const hash: string = window.location.hash;
@@ -39,11 +41,6 @@ function App(): JSX.Element {
         setToken(token!);
     }, []);
 
-    const logout = () => {
-        setToken("");
-        window.localStorage.removeItem("token");
-    };
-
     const searchArtist = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -61,7 +58,6 @@ function App(): JSX.Element {
     };
 
     /** */
-    const [asideToggle, setAsideToggle] = useState(false);
 
     const handleToggle = () => {
         setAsideToggle(!asideToggle);
@@ -94,8 +90,8 @@ function App(): JSX.Element {
 
             <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
                 <Header
-                    logout={logout}
-                    searchArtist={searchArtist}
+                    logout={() => spotifyService.logOutSpotify(setToken)}
+                    searchArtist={(e) => spotifyService.searchArtist(e, token, searchKey, setArtists)}
                     setSearchKey={setSearchKey}
                     token={token}
                     audio={player}
