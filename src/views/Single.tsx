@@ -4,7 +4,7 @@ import GridTitle from "../components/common/GridTitle";
 import CardPinkRibbon from "../components/common/cards/CardPinkRibbon";
 import Carousel from "../components/common/Carousel";
 import post_img from "../assets/images/blog/blog1.jpg";
-import VideoCategory from "../components/common/VideoCategory";
+import VideoList from "../components/common/VideoList";
 import Advertise from "../components/common/Advertise";
 import Plans from "../components/common/Plans";
 import Content from "../components/Content";
@@ -21,7 +21,7 @@ export default function Single({ video }: SingleProps) {
                     <img className="w-full h-72 bg-accent rounded object-cover" src={post_img} alt="post pic" />
                     <GridTitle title="New Videos" customClass="mt-8" readMore={false} badge={false} />
                     <div className="w-full h-full bg-dark mt-8">{video}</div>
-                    <VideoCategory />
+                    {/* <VideoList /> */}
                     <Advertise />
                     <Plans />
                 </Sidebar>

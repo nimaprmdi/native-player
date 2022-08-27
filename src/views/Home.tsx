@@ -6,7 +6,7 @@ import Slider from "../components/Slider";
 import CardCaption from "../components/common/cards/CardCaption";
 import CardPinkRibbon from "../components/common/cards/CardPinkRibbon";
 import GridTitle from "../components/common/GridTitle";
-import VideoCategory from "../components/common/VideoCategory";
+import VideoList from "../components/common/VideoList";
 import Advertise from "../components/common/Advertise";
 import Plans from "../components/common/Plans";
 import spotifyService from "../services/SpotifyServices";

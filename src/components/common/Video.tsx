@@ -1,6 +1,6 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import Plyr, { APITypes } from "plyr-react";
-import VideoCategory from "./VideoCategory";
+import VideoList from "./VideoList";
 import { idMaker } from "../../utils/helpers";
 
 interface Videos {
@@ -10,27 +10,26 @@ interface Videos {
 }
 
 const Video = () => {
-    const [selectedVideo, setSelectedVideo] = useState(1);
+    const [selectedVideo, setSelectedVideo] = useState<number>(0);
     const [videos, setVideos] = useState<Videos[]>([
         {
+            id: 0,
+            url: "https://nimapm.ir/videos/escape.mp4",
+            title: "Kx5 - Escape (feat. Hayla) [Official Lyric Video]",
+        },
+        {
             id: 1,
-            url: "https://youtu.be/BMFNN40fNp0",
-            title: idMaker("Kx5 - Escape (feat. Hayla) [Official Lyric Video]"),
+            url: "https://nimapm.ir/videos/deadmau5-pomegranet.mp4",
+            title: "deadmau5 & The Neptunes - Pomegranate (Official Music Video)",
         },
         {
             id: 2,
-            url: "https://youtu.be/aAvyS6HSa0A",
-            title: idMaker("deadmau5 & The Neptunes - Pomegranate (Official Music Video)"),
-        },
-        {
-            id: 3,
-            url: "https://youtu.be/r0bhF7SJLYQ",
-            title: idMaker("deadmau5 & The Neptunes - Pomegranate (Official Music Video)"),
+            url: "http://nimapourmohammadi.com/wp-content/uploads/2022/08/tiesto.mp4",
+            title: "Tiësto & Charli XCX - Hot In It",
         },
     ]);
 
     const ref = useRef<APITypes>(null);
-
     const video = useMemo(() => {
         return (
             <Plyr
@@ -39,19 +38,19 @@ const Video = () => {
                     type: "video",
                     sources: [
                         {
-                            src: videos[0].url,
-                            provider: "youtube",
+                            src: videos[selectedVideo].url,
+                            provider: "html5",
                         },
                     ],
                 }}
             />
         );
-    }, []);
+    }, [selectedVideo]);
 
     return (
         <>
             {video}
-            <VideoCategory />
+            <VideoList videos={videos} onChangeVideo={(e) => setSelectedVideo(e)} />
         </>
     );
 };
