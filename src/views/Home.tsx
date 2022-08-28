@@ -9,46 +9,22 @@ import GridTitle from "../components/common/GridTitle";
 import VideoList from "../components/common/VideoList";
 import Advertise from "../components/common/Advertise";
 import Plans from "../components/common/Plans";
-import spotifyService from "../services/SpotifyServices";
-import Recommendation from "../models/Recommendation";
-import SongCategory from "../models/SongCategory";
-import FeaturedAlbums from "../models/FeturedAlbums";
 import CardRibbon from "../components/common/cards/CardRibbon";
 import Card from "../components/common/cards/Card";
 import Video from "../components/common/Video";
 import FeaturedPlayLists from "../models/FeaturedPlayLists";
 import { Link } from "react-router-dom";
+import Recommendation from "../models/Recommendation";
+import SongCategory from "../models/SongCategory";
+import FeaturedAlbums from "../models/FeturedAlbums";
 
 interface HomeProps {
-    token: string;
+    recommendedTracks: Recommendation;
+    playListsByCats: SongCategory;
+    featuredAlbums: FeaturedAlbums;
 }
 
-const Home = ({ token }: HomeProps): JSX.Element => {
-    const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
-    const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
-    const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
-
-    const getRecommendedTracks = async () => {
-        const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
-        setRecommendedTracks(recommendedTracksLocal);
-    };
-
-    const getPlayListsByCats = async () => {
-        const topItems = await spotifyService.getPlayListsByCat(token);
-        setPlayListsByCats(topItems);
-    };
-
-    const getFeaturedAlbums = async () => {
-        const featuredAlbums = await spotifyService.getFeaturedAlbums(token);
-        setFeaturedAlbums(featuredAlbums);
-    };
-
-    useEffect(() => {
-        token && getRecommendedTracks();
-        token && getPlayListsByCats();
-        token && getFeaturedAlbums();
-    }, [token]);
-
+const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps): JSX.Element => {
     return (
         <section className="c-home w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-3/5 mt-">

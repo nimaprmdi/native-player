@@ -1,5 +1,4 @@
-import { useMemo, useState, useRef, useEffect } from "react";
-import Plyr, { APITypes } from "plyr-react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Home from "./views/Home";
 import Radio from "./views/Radio";
@@ -10,10 +9,13 @@ import Contact from "./views/Contact";
 import Single from "./views/Single";
 import Artists from "./models/Artists";
 import spotifyService from "./services/SpotifyServices";
-import { Navigation } from "./components/Navigation";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import FeaturedPlayLists from "./models/FeaturedPlayLists";
 import FeaturedPlayListsContext from "./utils/context/featuredPlayLists";
+import Recommendation from "./models/Recommendation";
+import SongCategory from "./models/SongCategory";
+import FeaturedAlbums from "./models/FeturedAlbums";
+import { Navigation } from "./components/Navigation";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App(): JSX.Element {
     const [token, setToken] = useState("");
@@ -21,6 +23,40 @@ function App(): JSX.Element {
     const [artists, setArtists] = useState<Artists[]>([]);
     const [asideToggle, setAsideToggle] = useState(false);
     const [featuredPlayList, setFeaturedPlayList] = useState<FeaturedPlayLists>({ name: "", tracks: { items: [] } });
+    const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
+    const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
+    const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
+
+    const getRecommendedTracks = async () => {
+        const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
+        setRecommendedTracks(recommendedTracksLocal);
+    };
+
+    const getPlayListsByCats = async () => {
+        const topItems = await spotifyService.getPlayListsByCat(token);
+        setPlayListsByCats(topItems);
+    };
+
+    const getFeaturedAlbums = async () => {
+        const featuredAlbums = await spotifyService.getFeaturedAlbums(token);
+        setFeaturedAlbums(featuredAlbums);
+    };
+
+    const getFeaturedPlayList = async () => {
+        const featuredPlayList: FeaturedPlayLists = await spotifyService.getFeaturedPlayList(token);
+        setFeaturedPlayList(featuredPlayList);
+    };
+
+    useEffect(() => {
+        token && getRecommendedTracks();
+        token && getPlayListsByCats();
+        token && getFeaturedAlbums();
+        token && getFeaturedPlayList();
+    }, [token]);
+
+    const handleToggle = () => {
+        setAsideToggle(!asideToggle);
+    };
 
     useEffect(() => {
         const hash: string = window.location.hash;
@@ -40,37 +76,6 @@ function App(): JSX.Element {
         setToken(token!);
     }, []);
 
-    const handleToggle = () => {
-        setAsideToggle(!asideToggle);
-    };
-
-    const getFeaturedPlayList = async () => {
-        const featuredPlayList: FeaturedPlayLists = await spotifyService.getFeaturedPlayList(token);
-        setFeaturedPlayList(featuredPlayList);
-    };
-
-    useEffect(() => {
-        token && getFeaturedPlayList();
-    }, [token]);
-
-    const ref = useRef<APITypes>(null);
-    const player = useMemo(() => {
-        return (
-            <Plyr
-                ref={ref}
-                source={{
-                    type: "audio",
-                    sources: [
-                        {
-                            src: "http://nimapourmohammadi.com/wp-content/uploads/2022/08/amb_bigfoot_backing_part_02_06.mp3",
-                            provider: "html5",
-                        },
-                    ],
-                }}
-            />
-        );
-    }, []);
-
     useEffect(() => {}, [featuredPlayList]);
 
     return (
@@ -86,7 +91,6 @@ function App(): JSX.Element {
                         searchArtist={(e) => spotifyService.searchArtist(e, token, searchKey, setArtists)}
                         setSearchKey={setSearchKey}
                         token={token}
-                        audio={player}
                         onAsideToggle={handleToggle}
                         artists={artists}
                         setArtists={setArtists}
@@ -97,7 +101,11 @@ function App(): JSX.Element {
                             path="/"
                             element={
                                 <FeaturedPlayListsContext.Provider value={featuredPlayList}>
-                                    <Home token={token} />
+                                    <Home
+                                        recommendedTracks={recommendedTracks}
+                                        playListsByCats={playListsByCats}
+                                        featuredAlbums={featuredAlbums}
+                                    />
                                 </FeaturedPlayListsContext.Provider>
                             }
                         />

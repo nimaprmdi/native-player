@@ -20,6 +20,9 @@ class SpotifyServices {
         const { data } = await this.http.get<FeaturedPlayLists>("/playlists/1bAxUEAiPtRRMsnHbkz7vP", {
             headers: this.getHeaders(token),
         });
+
+        console.log("spotifyService getFeaturedPlayList");
+
         return data;
     };
 
@@ -32,6 +35,7 @@ class SpotifyServices {
                 seed_tracks: "7cbsuVHDGO1QWG15TUOOtp",
             },
         });
+        console.log("spotifyService getRecommendedTracks");
         return data;
     };
 
@@ -42,6 +46,8 @@ class SpotifyServices {
                 limit: 10,
             },
         });
+
+        console.log("spotifyService getPlayListsByCat");
         return data;
     };
 

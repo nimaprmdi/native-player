@@ -5,8 +5,7 @@ import spotifyService from "../services/SpotifyServices";
 import SearchModal from "./common/SearchModal";
 import GridMd from "./common/GridMd";
 import CardCaption from "./common/cards/CardCaption";
-import SpotifyPlayer from "react-spotify-web-playback";
-
+import Audio from "../components/common/Audio";
 interface HeaderProps {
     onAsideToggle: () => void;
     logout: () => void;
@@ -14,7 +13,6 @@ interface HeaderProps {
     setSearchKey: (e: string) => void;
     setArtists: (artists: Artist[]) => void;
     token: string;
-    audio?: JSX.Element;
     artists: Artist[];
 }
 
@@ -26,7 +24,6 @@ const Header = ({
     setArtists,
     artists,
     token,
-    audio,
 }: HeaderProps): JSX.Element => {
     const [visibleModal, setVisibleModal] = useState(false);
 
@@ -64,7 +61,9 @@ const Header = ({
                         <span className="w-5 h-0.252 bg-white block my-1 mx-0"></span>
                     </button>
                 </div>
-                <div className="md:w-2/3 desktop:w-2/6">{audio}</div>
+                <div className="md:w-2/3 desktop:w-2/6">
+                    <Audio />
+                </div>
 
                 <div className="md:w-2/6 flex justify-end">
                     <button
