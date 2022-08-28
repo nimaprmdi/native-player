@@ -15,9 +15,7 @@ const Slider = ({ customClass }: SliderProps): JSX.Element => {
 
     const featuredPlayList = useContext(FeaturedPlayListsContext);
 
-    useEffect(() => {
-        console.log(featuredPlayList);
-    }, [featuredPlayList]);
+    useEffect(() => {}, [featuredPlayList]);
 
     return (
         <div className="c-slider w-full desktop:h-147.5 relative">

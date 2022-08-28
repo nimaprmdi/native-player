@@ -52,6 +52,7 @@ class SpotifyServices {
                 ids: "4CJz7SiuYgxGPQSk4RMXBc,6CIslPQSknp875cigkhKJC,7wHRbv2KffwwK0sSZu7YI5,5YBZo3FqPKyuFKJcn8e7js,0nSJya8Yd1OXtXiQjkXZLO,5xjXARHTm4YSmQPDDFZO0W,3xp9A0kXzxqUztRASTjVD5,57bABnvvPfNhBQRI70dqlU,3yyMpOkLtbcbVJFzEESLN0,0MxnDPoKo4ohNSdnuZpIxg",
             },
         });
+        console.log("spotifyService FeaturedAlbums");
 
         return data;
     };

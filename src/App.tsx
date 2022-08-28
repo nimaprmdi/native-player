@@ -33,8 +33,6 @@ function App(): JSX.Element {
                 .find((elem) => elem.startsWith("access_token"))
                 ?.split("=")[1];
 
-            console.log(token);
-
             window.location.hash = "";
             window.localStorage.setItem("token", token!);
         }
@@ -48,7 +46,6 @@ function App(): JSX.Element {
 
     const getFeaturedPlayList = async () => {
         const featuredPlayList: FeaturedPlayLists = await spotifyService.getFeaturedPlayList(token);
-        console.log("getFeaturedPlayList", featuredPlayList);
         setFeaturedPlayList(featuredPlayList);
     };
 
@@ -94,6 +91,7 @@ function App(): JSX.Element {
                         artists={artists}
                         setArtists={setArtists}
                     />
+
                     <Routes>
                         <Route
                             path="/"

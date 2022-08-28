@@ -17,6 +17,7 @@ import CardRibbon from "../components/common/cards/CardRibbon";
 import Card from "../components/common/cards/Card";
 import Video from "../components/common/Video";
 import FeaturedPlayLists from "../models/FeaturedPlayLists";
+import { Link } from "react-router-dom";
 
 interface HomeProps {
     token: string;
