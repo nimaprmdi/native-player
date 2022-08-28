@@ -12,7 +12,6 @@ const Radio = (): JSX.Element => {
             <div className="w-full mb-8">
                 <GridTitle title="New Releases" />
                 <Cateogory />
-
                 <GridLarge>
                     <CardRibbon />
                     <CardRibbon />
@@ -30,7 +29,6 @@ const Radio = (): JSX.Element => {
 
             <div className="w-full">
                 <GridTitle title="New Releases" />
-
                 <GridLarge>
                     <Card />
                 </GridLarge>

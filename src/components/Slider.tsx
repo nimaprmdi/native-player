@@ -1,31 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Flickity from "react-flickity-component";
-import FeaturedPlayLists from "../models/FeaturedPlayLists";
-import spotifyService from "../services/SpotifyServices";
 import "flickity/css/flickity.css";
+import FeaturedPlayLists from "../models/FeaturedPlayLists";
+import FeaturedPlayListsContext from "../utils/context/featuredPlayLists";
 
 interface SliderProps {
     customClass?: string;
-    token: string;
 }
 
-const Slider = ({ customClass, token }: SliderProps): JSX.Element => {
-    const [featuredPlayList, setFeaturedPlayList] = useState<FeaturedPlayLists>({ name: "", tracks: { items: [] } });
-
-    const getFeaturedPlayList = async () => {
-        const featuredPlayList: FeaturedPlayLists = await spotifyService.getFeaturedPlayList(token);
-        setFeaturedPlayList(featuredPlayList);
-    };
-
-    useEffect(() => {
-        token && getFeaturedPlayList();
-    }, [token]);
-
+const Slider = ({ customClass }: SliderProps): JSX.Element => {
     const flickityOptions = {
         cellSelector: ".carousel-cell",
     };
 
-    const { tracks } = featuredPlayList;
+    const featuredPlayList = useContext(FeaturedPlayListsContext);
+
+    useEffect(() => {
+        console.log(featuredPlayList);
+    }, [featuredPlayList]);
 
     return (
         <Flickity options={flickityOptions} className={`c-slider w-full desktop:h-147.5 relative ${customClass}`}>
@@ -33,7 +25,7 @@ const Slider = ({ customClass, token }: SliderProps): JSX.Element => {
                 {featuredPlayList.name} By NimaPm
             </span>
 
-            {tracks.items.map((playListItem, indexNumber) => {
+            {featuredPlayList.tracks.items.map((playListItem, indexNumber) => {
                 return (
                     indexNumber <= 5 && (
                         <div key={`carousel-cell-${indexNumber}`} className="carousel-cell w-full mx-10">

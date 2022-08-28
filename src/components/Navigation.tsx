@@ -1,5 +1,6 @@
 import { navigation } from "../navigation/Navigator";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 interface SidebarProps {
     asideToggle: boolean;
@@ -21,11 +22,11 @@ export const Navigation = ({ asideToggle }: SidebarProps): JSX.Element => {
                     {navigation.map((item) => (
                         <li
                             className="c-nav__item md:w-full md:h-14 flex justify-center items-center ml-4 md:ml-0 relative z-30"
-                            key={item.url}
+                            key={item.route}
                         >
-                            <a className="c-nav__item-link" href={item.url}>
+                            <Link className="c-nav__item-link" to={item.route}>
                                 <Icon className="c-nav__icon text-accent text-h3" icon={item.icon} />
-                            </a>
+                            </Link>
 
                             {item.children && (
                                 <ul className="c-nav__child-list absolute -right-full z-40 hidden">
@@ -34,7 +35,7 @@ export const Navigation = ({ asideToggle }: SidebarProps): JSX.Element => {
                                             <li key={child.name} className="c-nav__child-item bg-accent  py-4 px-4">
                                                 <a
                                                     className="c-nav__child-item-link capitalize text-white"
-                                                    href={child.url}
+                                                    href={child.route}
                                                 >
                                                     {child.name}
                                                 </a>

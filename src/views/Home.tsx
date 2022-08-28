@@ -16,6 +16,7 @@ import FeaturedAlbums from "../models/FeturedAlbums";
 import CardRibbon from "../components/common/cards/CardRibbon";
 import Card from "../components/common/cards/Card";
 import Video from "../components/common/Video";
+import FeaturedPlayLists from "../models/FeaturedPlayLists";
 
 interface HomeProps {
     token: string;
@@ -50,9 +51,8 @@ const Home = ({ token }: HomeProps): JSX.Element => {
     return (
         <section className="c-home w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-3/5 mt-">
-                <Slider token={token} />
+                <Slider />
                 <GridTitle title="Recommended Songs" customClass="mt-16" />
-
                 <GridMd>
                     <>
                         {recommendedTracks.tracks.map((track, index) => {
@@ -68,9 +68,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
                         })}
                     </>
                 </GridMd>
-
                 <GridTitle title="Related Playlists" customClass="mt-12" />
-
                 <GridMd>
                     <>
                         {playListsByCats &&
@@ -88,6 +86,7 @@ const Home = ({ token }: HomeProps): JSX.Element => {
                     </>
                 </GridMd>
             </div>
+
             <div className="w-full desktop:w-2/5">
                 <Sidebar className="px-2 desktop:px-0 desktop:pl-8">
                     <Video />
