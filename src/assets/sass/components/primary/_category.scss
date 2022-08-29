@@ -1,15 +1,7 @@
 .c-category__item {
     color: $dark_color;
-    border: 1px solid transparentize($color: $dark_color, $amount: 0.5);
     cursor: pointer;
     transition: 0.3s all;
-
-    &:hover,
-    &:focus {
-        background-color: $accent_color;
-        border: 1px solid $accent_color;
-        color: $npm_main_white_color;
-    }
 }
 
 .c-category__item.active {

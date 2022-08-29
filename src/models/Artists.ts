@@ -1,11 +1,16 @@
+export interface ArtitstsObj {
+    artists: Artists[];
+}
+
 export default interface Artists {
     id: string;
-    images: ArtistProps[];
+    images: ArtistImages[];
     name?: string;
     uri?: string;
     href: string;
+    genres?: string | string[];
 }
 
-interface ArtistProps {
+interface ArtistImages {
     url: string;
 }

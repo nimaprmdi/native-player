@@ -1,5 +1,9 @@
+// Reacts
 import { useState, useEffect } from "react";
+// Components
 import Header from "./components/Header";
+import { Navigation } from "./components/Navigation";
+// Views
 import Home from "./views/Home";
 import Radio from "./views/Radio";
 import Browse from "./views/Browse";
@@ -7,14 +11,16 @@ import NotFound from "./views/NotFound";
 import Blog from "./views/Blog";
 import Contact from "./views/Contact";
 import Single from "./views/Single";
-import Artists from "./models/Artists";
-import spotifyService from "./services/SpotifyServices";
+// Models
+import Artists, { ArtitstsObj } from "./models/Artists";
 import FeaturedPlayLists from "./models/FeaturedPlayLists";
 import FeaturedPlayListsContext from "./utils/context/featuredPlayLists";
 import Recommendation from "./models/Recommendation";
 import SongCategory from "./models/SongCategory";
 import FeaturedAlbums from "./models/FeturedAlbums";
-import { Navigation } from "./components/Navigation";
+// Services
+import spotifyService from "./services/SpotifyServices";
+// Third-Party
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App(): JSX.Element {
@@ -26,6 +32,7 @@ function App(): JSX.Element {
     const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
     const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
     const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
+    const [relatedArtists, setRelatedArtists] = useState<ArtitstsObj>({ artists: [] });
 
     const getRecommendedTracks = async () => {
         const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
@@ -47,11 +54,17 @@ function App(): JSX.Element {
         setFeaturedPlayList(featuredPlayList);
     };
 
+    const getRelatedArtists = async () => {
+        const relatedArtists = await spotifyService.getRelatedArtists(token);
+        setRelatedArtists(relatedArtists);
+    };
+
     useEffect(() => {
         token && getRecommendedTracks();
         token && getPlayListsByCats();
         token && getFeaturedAlbums();
         token && getFeaturedPlayList();
+        token && getRelatedArtists();
     }, [token]);
 
     const handleToggle = () => {
@@ -109,8 +122,17 @@ function App(): JSX.Element {
                                 </FeaturedPlayListsContext.Provider>
                             }
                         />
-                        <Route path="/radio" element={<Radio />} />
-                        <Route path="/browse" element={<Browse />} />
+                        <Route
+                            path="/radio"
+                            element={
+                                <Radio
+                                    recommendedTracks={recommendedTracks}
+                                    playListsByCats={playListsByCats}
+                                    featuredAlbums={featuredAlbums}
+                                />
+                            }
+                        />
+                        <Route path="/browse" element={<Browse relatedArtists={relatedArtists.artists} />} />
                         <Route path="/404" element={<NotFound />} />
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/contact" element={<Contact />} />

@@ -81,9 +81,10 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                     {featuredAlbums.albums.map((album, index) => {
                         return (
                             <CardPinkRibbon
+                                id={album.id}
                                 key={`Featured-Albums-${index}`}
                                 image={album.images[0].url}
-                                title={album.name}
+                                name={album.name}
                             />
                         );
                     })}

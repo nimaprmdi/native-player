@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ArtitstsObj } from "../models/Artists";
 import FeaturedPlayLists from "../models/FeaturedPlayLists";
 import Recommendation from "../models/Recommendation";
 import SongCategory from "../models/SongCategory";
@@ -21,8 +22,6 @@ class SpotifyServices {
             headers: this.getHeaders(token),
         });
 
-        console.log("spotifyService getFeaturedPlayList");
-
         return data;
     };
 
@@ -33,9 +32,9 @@ class SpotifyServices {
                 seed_artists: "2CIMQHirSU0MQqyYHq0eOx",
                 seed_genres: "edm_dance",
                 seed_tracks: "7cbsuVHDGO1QWG15TUOOtp",
+                limit: 24,
             },
         });
-        console.log("spotifyService getRecommendedTracks");
         return data;
     };
 
@@ -43,11 +42,10 @@ class SpotifyServices {
         const { data } = await this.http.get<SongCategory>("browse/categories/edm_dance/playlists", {
             headers: this.getHeaders(token),
             params: {
-                limit: 10,
+                limit: 12,
             },
         });
 
-        console.log("spotifyService getPlayListsByCat");
         return data;
     };
 
@@ -58,8 +56,14 @@ class SpotifyServices {
                 ids: "4CJz7SiuYgxGPQSk4RMXBc,6CIslPQSknp875cigkhKJC,7wHRbv2KffwwK0sSZu7YI5,5YBZo3FqPKyuFKJcn8e7js,0nSJya8Yd1OXtXiQjkXZLO,5xjXARHTm4YSmQPDDFZO0W,3xp9A0kXzxqUztRASTjVD5,57bABnvvPfNhBQRI70dqlU,3yyMpOkLtbcbVJFzEESLN0,0MxnDPoKo4ohNSdnuZpIxg",
             },
         });
-        console.log("spotifyService FeaturedAlbums");
 
+        return data;
+    };
+
+    getRelatedArtists = async (token: string) => {
+        const { data } = await this.http.get<ArtitstsObj>("/artists/2CIMQHirSU0MQqyYHq0eOx/related-artists", {
+            headers: this.getHeaders(token),
+        });
         return data;
     };
 

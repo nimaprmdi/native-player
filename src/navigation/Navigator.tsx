@@ -22,6 +22,7 @@ export const navigation: Navigate[] = [
         // ],
     },
     { name: "radio", route: "/radio", icon: "akar-icons:phone" },
+    { name: "browse", route: "/browse", icon: "bx:user-pin" },
     {
         name: "about",
         route: "/about",
