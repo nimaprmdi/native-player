@@ -1,12 +1,12 @@
 interface SubCategory {
     name: string;
-    url: string;
+    route: string;
     icon: string;
 }
 
 export default interface Navigate {
     name: string;
-    url: string;
+    route: string;
     icon: string;
     children?: SubCategory[];
 }
@@ -14,21 +14,20 @@ export default interface Navigate {
 export const navigation: Navigate[] = [
     {
         name: "home",
-        url: "https://google.com/home",
+        route: "/",
         icon: "ant-design:home-outlined",
-        children: [
-            { name: "Sub Home1", url: "https://google.com/xx", icon: "akar-icons:phone" },
-            { name: "Sub Home2", url: "https://google.com/zz", icon: "akar-icons:phone" },
-        ],
+        // children: [
+        //     { name: "Sub Home1", route: "https://google.com/xx", icon: "akar-icons:phone" },
+        //     { name: "Sub Home2", route: "https://google.com/zz", icon: "akar-icons:phone" },
+        // ],
     },
+    { name: "radio", route: "/radio", icon: "eva:radio-outline" },
+    { name: "browse", route: "/browse", icon: "bx:user-pin" },
     {
-        name: "about",
-        url: "https://google.com/about/pp",
-        icon: "carbon:information",
-        children: [
-            { name: "Sub Home3", url: "https://google.com/ss", icon: "akar-icons:phone" },
-            { name: "Sub Home4", url: "https://google.com/kk", icon: "akar-icons:phone" },
-        ],
+        name: "404",
+        route: "/404",
+        icon: "tabler:error-404",
     },
-    { name: "contact", url: "https://google.com/about", icon: "akar-icons:phone" },
+    { name: "contact", route: "/contact", icon: "akar-icons:phone" },
+    { name: "contact", route: "/single", icon: "bi:file-earmark-post" },
 ];

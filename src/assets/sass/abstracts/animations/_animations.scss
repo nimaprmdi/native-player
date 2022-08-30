@@ -46,3 +46,29 @@
         opacity: 0;
     }
 }
+
+/* loading*/
+@keyframes loading {
+    0% {
+        background-position: -180px;
+    }
+
+    50% {
+        background-position: 380px;
+    }
+    100% {
+        background-position: -180px;
+    }
+}
+@-webkit-keyframes loading {
+    0% {
+        background-position: -180px;
+    }
+
+    50% {
+        background-position: 380px;
+    }
+    100% {
+        background-position: -180px;
+    }
+}

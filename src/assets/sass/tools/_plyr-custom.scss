@@ -26,4 +26,8 @@
 
         display: none;
     }
+
+    .plyr__progress input[type="range"] {
+        padding: 0px !important;
+    }
 }

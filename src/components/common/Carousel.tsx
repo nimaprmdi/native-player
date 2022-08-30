@@ -1,11 +1,9 @@
-import React from "react";
 import Flickity from "react-flickity-component";
 import "flickity/css/flickity.css";
-import CardPinkRibbon from "./cards/CardPinkRibbon";
-import GridTitle from "./GridTitle";
 
 interface CarouselProps {
-    children?: JSX.Element | JSX.Element[];
+    children?: JSX.Element[] | JSX.Element;
+    classname?: string;
 }
 
 interface FlickityOptions {
@@ -14,7 +12,7 @@ interface FlickityOptions {
     cellAlign?: string;
 }
 
-const Carousel = ({ children }: CarouselProps): JSX.Element => {
+const Carousel = ({ children, classname }: CarouselProps): JSX.Element => {
     const flickityOptions: FlickityOptions = {
         wrapAround: false,
         pageDots: false,
@@ -22,8 +20,8 @@ const Carousel = ({ children }: CarouselProps): JSX.Element => {
     };
 
     return (
-        <section>
-            <Flickity options={flickityOptions} className={`c-slider w-full h-60 mt-6 px-2`}>
+        <section className={classname}>
+            <Flickity options={flickityOptions} className={`c-slider w-full h-80 mt-6 px-2`}>
                 {children}
             </Flickity>
         </section>

@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 const Plans = () => {
     return (
         <div className="w-full mt-6 bg-dark rounded p-8">
-            <h3 className="text-white text-h3">Upgrade your Plan</h3>
+            <h3 className="text-white text-h3 text-center">Upgrade your Plan</h3>
 
             <div className="flex flex-wrap md:flex-nowrap justify-between mt-12 gap-6">
                 <div className="rounded border border-accent w-full">

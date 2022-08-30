@@ -1,22 +1,26 @@
 interface GridTitleProps {
+    title: string;
     customClass?: string;
+    readMore?: boolean;
+    badge?: boolean;
 }
 
-const GridTitle = ({ customClass }: GridTitleProps) => {
+const GridTitle = ({ title, customClass, readMore = true, badge = true }: GridTitleProps) => {
     return (
-        <div
-            className={`w-full px-2 pt-4 desktop:pt-0 desktop:px-0 desktop:pr-8 flex flex-wrap md:flex-nowrap items-center justify-between mb-6 ${customClass}`}
-        >
-            <div className="w-full md:w-max desktop:w-full flex items-center justify-start">
-                <h2 className="mr-2 text-h2">New Releases</h2>
-                <span className="c-badge">New</span>
+        <div className={`w-full flex flex-wrap md:flex-nowrap items-center justify-between mb-6 px-2 ${customClass}`}>
+            <div className="w-full md:w-max desktop:w-full flex flex-wrap gap-4 items-center justify-start">
+                <h2 className="mr-2 text-h2 leading-9">{title}</h2>
+
+                {badge && <span className="c-badge">New</span>}
             </div>
 
-            <div className="mt-4 md:mt-0 w-max">
-                <a href="#" className="block w-max">
-                    See All
-                </a>
-            </div>
+            {readMore && (
+                <div className="mt-4 md:mt-0 w-max">
+                    <a href="#" className="block w-max">
+                        See All
+                    </a>
+                </div>
+            )}
         </div>
     );
 };
