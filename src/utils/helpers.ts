@@ -7,8 +7,6 @@ export const textCutter = (title: string, cutAmount: number = 49): string => {
 };
 
 const sortDataAtoZ = <T>(datas: T) => {
-    console.log("a-to-z");
-
     return Array.isArray(datas) && datas.sort((data, b) => data.name.localeCompare(b.name));
 };
 
@@ -37,4 +35,14 @@ export const handleSorting = <T>(sorting: string, data: T) => {
         default:
             return data;
     }
+};
+
+export const padTo2Digits = (num: number) => {
+    return num.toString().padStart(2, "0");
+};
+
+export const millisecondsToMinutes = (milliseconds: number) => {
+    const minutes = Math.floor(milliseconds / 60000);
+    const seconds = Math.round((milliseconds % 60000) / 1000);
+    return `${minutes}:${seconds}`;
 };

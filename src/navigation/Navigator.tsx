@@ -21,12 +21,13 @@ export const navigation: Navigate[] = [
         //     { name: "Sub Home2", route: "https://google.com/zz", icon: "akar-icons:phone" },
         // ],
     },
-    { name: "radio", route: "/radio", icon: "akar-icons:phone" },
+    { name: "radio", route: "/radio", icon: "eva:radio-outline" },
     { name: "browse", route: "/browse", icon: "bx:user-pin" },
     {
-        name: "about",
-        route: "/about",
-        icon: "carbon:information",
+        name: "404",
+        route: "/404",
+        icon: "tabler:error-404",
     },
     { name: "contact", route: "/contact", icon: "akar-icons:phone" },
+    { name: "contact", route: "/single", icon: "bi:file-earmark-post" },
 ];

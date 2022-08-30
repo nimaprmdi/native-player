@@ -67,6 +67,13 @@ class SpotifyServices {
         return data;
     };
 
+    getTrackById = async (token: string, trackId: string) => {
+        const { data } = await this.http.get(`/tracks/${trackId}`, {
+            headers: this.getHeaders(token),
+        });
+        return data;
+    };
+
     logOutSpotify = (setToken: Function) => {
         setToken("");
         window.localStorage.removeItem("token");

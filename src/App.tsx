@@ -22,6 +22,7 @@ import FeaturedAlbums from "./models/FeturedAlbums";
 import spotifyService from "./services/SpotifyServices";
 // Third-Party
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 function App(): JSX.Element {
     const [token, setToken] = useState("");
@@ -93,6 +94,8 @@ function App(): JSX.Element {
 
     return (
         <BrowserRouter>
+            <ScrollToTop />
+
             <div className="App min-h-screen">
                 <section className="c-page__aside">
                     <Navigation asideToggle={asideToggle} />
@@ -134,9 +137,9 @@ function App(): JSX.Element {
                         />
                         <Route path="/browse" element={<Browse relatedArtists={relatedArtists.artists} />} />
                         <Route path="/404" element={<NotFound />} />
-                        <Route path="/blog" element={<Blog />} />
+                        {/* <Route path="/blog" element={<Blog />} /> */}
                         <Route path="/contact" element={<Contact />} />
-                        <Route path="/single" element={<Single />} />
+                        <Route path="/single/:id" element={<Single token={token} />} />
 
                         <Route path="*" element={<Navigate replace to="/404" />} />
                     </Routes>

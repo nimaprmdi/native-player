@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import Card from "../components/common/cards/Card";
-import Carousel from "../components/common/Carousel";
 import GridLarge from "../components/common/GridLarge";
 import CardRibbon from "../components/common/cards/CardRibbon";
 import Cateogory from "../components/common/Cateogory";
@@ -26,20 +24,18 @@ const Browse = ({ relatedArtists }: BrowseProps): JSX.Element => {
 
     useEffect(() => {
         const sortedData = handleSorting(sorting, relatedArtists);
-
-        sortedData && setDatas(sortedData);
+        sortedData && setDatas([...sortedData]);
     }, [sorting]);
 
     return (
-        <section className="c-radio w-full pt-14 pb-40 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
+        <section className="c-radio w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
             <div className="w-full mb-8">
-                <GridTitle title="New Releases" />
+                <GridTitle title="Related EDM Artists" badge={false} />
                 <Cateogory onSortChange={(e) => sortChange(e)} />
 
                 <GridLarge>
                     <>
                         {datas &&
-                            Array.isArray(datas) &&
                             datas.map((artist, index) => {
                                 return (
                                     index < 18 && (

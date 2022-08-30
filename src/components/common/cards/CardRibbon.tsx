@@ -21,7 +21,7 @@ const CardRibbon = ({ id, image, readMore = true, title }: CardRibbonProps) => {
                     alt="album pic"
                 />
 
-                {!isLoaded && <div className="c-card__loader w-full h-72 relative"></div>}
+                {!isLoaded && <div className="c-card__loader w-full  h-72 before:h-72 relative"></div>}
 
                 <div className="c-card__item-cta w-full text-center pt-4 pb-4 bg-gray-800 text-white rounded-b">
                     {readMore ? "Listen Now" : textCutter(title!, 20)}

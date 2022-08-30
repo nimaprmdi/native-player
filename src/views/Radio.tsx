@@ -65,7 +65,14 @@ const Radio = ({ recommendedTracks, playListsByCats, featuredAlbums }: RadioProp
                     <>
                         {playListsByCats &&
                             playListsByCats.playlists.items.map((playList) => {
-                                return <Card id={playList.id} title={playList.name} image={playList.images[0].url} />;
+                                return (
+                                    <Card
+                                        key={playList.id}
+                                        id={playList.id}
+                                        title={playList.name}
+                                        image={playList.images[0].url}
+                                    />
+                                );
                             })}
                     </>
                 </GridLarge>

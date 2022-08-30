@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface CardCaptionProps {
     id: string;
     image: string;
@@ -7,7 +9,7 @@ interface CardCaptionProps {
 
 const CardCaption = ({ id, image, readMore = true, name }: CardCaptionProps) => {
     return (
-        <a href={id} className="c-card__item-link w-full text-h5 font-bold hover:text-accent">
+        <Link to={`/single/${id}`} className="c-card__item-link w-full text-h5 font-bold hover:text-accent">
             <div className="c-card__item w-full">
                 <img
                     className="c-card__image w-full h-60 rounded object-cover object-left-top"
@@ -17,7 +19,7 @@ const CardCaption = ({ id, image, readMore = true, name }: CardCaptionProps) => 
 
                 <div className="w-full text-center mt-4">{readMore ? "Listen Now" : name}</div>
             </div>
-        </a>
+        </Link>
     );
 };
 

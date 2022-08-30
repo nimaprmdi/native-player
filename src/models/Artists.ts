@@ -9,6 +9,7 @@ export default interface Artists {
     uri?: string;
     href: string;
     genres?: string | string[];
+    external_urls?: { spotify: string };
 }
 
 interface ArtistImages {

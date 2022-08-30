@@ -20,7 +20,7 @@ const Card = ({ id, image, title }: CardProps) => {
                     alt="album pic"
                 />
 
-                {!isLoaded && <div className="c-card__loader w-full h-72 relative"></div>}
+                {!isLoaded && <div className="c-card__loader w-full h-72 before:h-72 relative"></div>}
             </div>
         </a>
     );
