@@ -6,6 +6,8 @@ import SearchModal from "./common/SearchModal";
 import GridMd from "./common/GridMd";
 import CardCaption from "./common/cards/CardCaption";
 import Audio from "../components/common/Audio";
+import { APITypes } from "plyr-react";
+
 interface HeaderProps {
     onAsideToggle: () => void;
     logout: () => void;
@@ -14,6 +16,8 @@ interface HeaderProps {
     setArtists: (artists: Artist[]) => void;
     token: string;
     artists: Artist[];
+    currentMusic: string;
+    audioRef: React.RefObject<APITypes>;
 }
 
 const Header = ({
@@ -24,6 +28,8 @@ const Header = ({
     setArtists,
     artists,
     token,
+    currentMusic,
+    audioRef,
 }: HeaderProps): JSX.Element => {
     const [visibleModal, setVisibleModal] = useState(false);
 
@@ -62,7 +68,7 @@ const Header = ({
                     </button>
                 </div>
                 <div className="md:w-2/3 desktop:w-2/6">
-                    <Audio />
+                    <Audio currentMusic={currentMusic} audioRef={audioRef} />
                 </div>
 
                 <div className="md:w-2/6 flex justify-end">

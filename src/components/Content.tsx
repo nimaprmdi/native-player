@@ -1,14 +1,18 @@
 import { useEffect } from "react";
-import { Icon } from "@iconify/react";
+import SingleCards from "./common/cards/SingleCards";
+import GridTitle from "./common/GridTitle";
+import Carousel from "./common/Carousel";
 import Post from "../models/Post";
+import { Icon } from "@iconify/react";
 import { millisecondsToMinutes } from "../utils/helpers";
 import { Link } from "react-router-dom";
 
 interface ContentProps {
     postData: Post;
+    handlePlay: (e: string) => void;
 }
 
-const Content = ({ postData }: ContentProps): JSX.Element => {
+const Content = ({ postData, handlePlay }: ContentProps): JSX.Element => {
     useEffect(() => {}, [postData]);
 
     return (
@@ -20,10 +24,15 @@ const Content = ({ postData }: ContentProps): JSX.Element => {
                     <Icon className="text-gray-500" icon="ant-design:user-outlined" />
                     <span className="text-gray-500 ml-1">
                         <>
-                            {postData.artists.map((artist) => {
+                            {postData.artists.map((artist, index) => {
                                 return (
-                                    <Link key={artist.id} className="mr-2 text-gray-500" to={`/single/${artist.id}`}>
+                                    <Link
+                                        key={artist.id}
+                                        className="mr-2 text-gray-500 capitalize"
+                                        to={`/single/${artist.id}`}
+                                    >
                                         {artist.name}
+                                        {index < postData.artists.length - 1 ? "," : ""}
                                     </Link>
                                 );
                             })}
@@ -42,19 +51,38 @@ const Content = ({ postData }: ContentProps): JSX.Element => {
                 </div>
             </div>
 
-            <div className="c-content__article w-full pl-4">
-                <p className="text-dark text-h4 leading-8">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quo quidem, eum commodi nam ut dolorum
-                    quod vero recusandae corrupti dignissimos odit sequi doloremque, fuga earum ipsum quibusdam iusto
-                    distinctio alias vitae cupiditate? Ab sit incidunt iure at ipsa dignissimos, nulla dolores rem
-                    voluptate. Iste consequatur eaque iure. Impedit neque repudiandae unde facere error obcaecati
-                    facilis architecto nulla, officiis nisi vel fugit adipisci asperiores delectus, excepturi mollitia
-                    optio quia maiores consequuntur! Exercitationem amet reiciendis sit assumenda distinctio, sequi
-                    tempora nam vero dolorum est. Eaque eveniet voluptatum numquam sapiente labore necessitatibus sit
-                    cupiditate! Fuga dolorum aperiam esse consectetur quaerat itaque libero exercitationem illum
-                    similique facere vel culpa maxime veritatis natus, animi praesentium adipisci ab deleniti assumenda
-                    ducimus earum cumque! Exercitationem, consequuntur.
-                </p>
+            <div className="c-content__article w-full flex flex-wrap justify-center desktop:justify-start gap-2 relative">
+                <div className="w-full flex justify-start gap-2">
+                    {postData.type === "track" && (
+                        <>
+                            <SingleCards
+                                icon="ant-design:play-circle-filled"
+                                title="Play The Music"
+                                btnText="Play now"
+                                url="#"
+                                functional={() => handlePlay(postData.preview_url)}
+                            />
+
+                            <SingleCards
+                                icon="dashicons:album"
+                                title="go to album"
+                                btnText="go now"
+                                url={`/single/${postData.album.id}`}
+                            />
+                            <SingleCards icon="bi:person-lines-fill" title="go to artist" btnText="go now" url="#" />
+                        </>
+                    )}
+
+                    <SingleCards icon="akar-icons:spotify-fill" title="Open in spotify" btnText="Open Now" url="#" />
+                </div>
+                <div className="w-full order-3 desktop:order-3">
+                    <GridTitle title="New Releases" customClass="mt-6" readMore={false} />
+
+                    <Carousel>
+                        {/* <CardPinkRibbon />
+                    <CardPinkRibbon /> */}
+                    </Carousel>
+                </div>
             </div>
         </article>
     );

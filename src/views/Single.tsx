@@ -15,9 +15,10 @@ import Post from "../models/Post";
 
 interface SingleProps {
     token: string;
+    setCurrentMusic: (e: string) => void;
 }
 
-export default function Single({ token }: SingleProps): JSX.Element {
+export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Element {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const [post, setPost] = useState<Post>({
@@ -53,17 +54,17 @@ export default function Single({ token }: SingleProps): JSX.Element {
                 <Sidebar>
                     <>
                         <img
-                            className={`w-full h-72 bg-accent rounded object-cover ${isLoaded ? "block" : "hidden"}`}
+                            className={`w-full h-max bg-accent rounded object-cover ${isLoaded ? "block" : "hidden"}`}
                             src={post && post.album.images[0]?.url}
                             alt="post pic"
                             onLoad={() => setIsLoaded(true)}
                         />
 
-                        {!isLoaded && <div className="c-card__loader w-full  h-72 before:h-72 relative"></div>}
+                        {!isLoaded && (
+                            <div className="c-card__loader w-full h-96 before:h-96 relative before:rounded"></div>
+                        )}
                     </>
-
                     <GridTitle title="New Videos" customClass="mt-8" readMore={false} badge={false} />
-
                     <Video />
                     <Advertise />
                     <Plans />
@@ -71,16 +72,7 @@ export default function Single({ token }: SingleProps): JSX.Element {
             </div>
 
             <div className="w-full desktop:w-8/12 order-1 desktop:order-2">
-                <Content postData={post && post} />
-            </div>
-
-            <div className="w-full order-3 desktop:order-3">
-                <GridTitle title="New Releases" customClass="mt-6" readMore={false} />
-
-                <Carousel>
-                    {/* <CardPinkRibbon />
-                    <CardPinkRibbon /> */}
-                </Carousel>
+                <Content postData={post && post} handlePlay={setCurrentMusic} />
             </div>
         </section>
     );

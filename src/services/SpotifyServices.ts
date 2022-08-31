@@ -33,6 +33,7 @@ class SpotifyServices {
                 seed_genres: "edm_dance",
                 seed_tracks: "7cbsuVHDGO1QWG15TUOOtp",
                 limit: 24,
+                min_duration_ms: 1000,
             },
         });
         return data;

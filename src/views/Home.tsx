@@ -35,6 +35,7 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                     <>
                         {recommendedTracks.tracks.map((track, index) => {
                             return (
+                                track.preview_url &&
                                 index < 4 && (
                                     <CardCaption
                                         id={track.id}

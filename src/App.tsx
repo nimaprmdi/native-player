@@ -1,5 +1,5 @@
 // Reacts
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // Components
 import Header from "./components/Header";
 import { Navigation } from "./components/Navigation";
@@ -23,6 +23,7 @@ import spotifyService from "./services/SpotifyServices";
 // Third-Party
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/common/ScrollToTop";
+import { APITypes } from "plyr-react";
 
 function App(): JSX.Element {
     const [token, setToken] = useState("");
@@ -34,6 +35,9 @@ function App(): JSX.Element {
     const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
     const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
     const [relatedArtists, setRelatedArtists] = useState<ArtitstsObj>({ artists: [] });
+    const [currentMusic, setCurrentMusic] = useState("");
+
+    const audioRef = useRef<APITypes>(null);
 
     const getRecommendedTracks = async () => {
         const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
@@ -60,6 +64,18 @@ function App(): JSX.Element {
         setRelatedArtists(relatedArtists);
     };
 
+    const handleToggle = () => {
+        setAsideToggle(!asideToggle);
+    };
+
+    const handleAudioChange = (e: string) => {
+        setCurrentMusic(e);
+
+        setTimeout(() => {
+            audioRef.current?.plyr.play();
+        }, 500);
+    };
+
     useEffect(() => {
         token && getRecommendedTracks();
         token && getPlayListsByCats();
@@ -67,10 +83,6 @@ function App(): JSX.Element {
         token && getFeaturedPlayList();
         token && getRelatedArtists();
     }, [token]);
-
-    const handleToggle = () => {
-        setAsideToggle(!asideToggle);
-    };
 
     useEffect(() => {
         const hash: string = window.location.hash;
@@ -110,6 +122,8 @@ function App(): JSX.Element {
                         onAsideToggle={handleToggle}
                         artists={artists}
                         setArtists={setArtists}
+                        currentMusic={currentMusic}
+                        audioRef={audioRef}
                     />
 
                     <Routes>
@@ -139,7 +153,10 @@ function App(): JSX.Element {
                         <Route path="/404" element={<NotFound />} />
                         {/* <Route path="/blog" element={<Blog />} /> */}
                         <Route path="/contact" element={<Contact />} />
-                        <Route path="/single/:id" element={<Single token={token} />} />
+                        <Route
+                            path="/single/:id"
+                            element={<Single token={token} setCurrentMusic={(e) => handleAudioChange(e)} />}
+                        />
 
                         <Route path="*" element={<Navigate replace to="/404" />} />
                     </Routes>
