@@ -154,7 +154,7 @@ function App(): JSX.Element {
                         {/* <Route path="/blog" element={<Blog />} /> */}
                         <Route path="/contact" element={<Contact />} />
                         <Route
-                            path="/single/:id"
+                            path="/single"
                             element={<Single token={token} setCurrentMusic={(e) => handleAudioChange(e)} />}
                         />
 

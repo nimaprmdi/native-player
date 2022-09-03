@@ -1,61 +1,59 @@
 import { useState, useEffect } from "react";
-import CardWide from "../components/common/cards/CardWide";
 import Sidebar from "../components/common/Sidebar";
 import GridTitle from "../components/common/GridTitle";
-import Carousel from "../components/common/Carousel";
 import Advertise from "../components/common/Advertise";
 import Plans from "../components/common/Plans";
 import Content from "../components/Content";
 import Video from "../components/common/Video";
-import CardPinkRibbon from "../components/common/cards/CardPinkRibbon";
-import post_img from "../assets/images/blog/blog1.jpg";
-import { useParams } from "react-router-dom";
 import spotifyServices from "../services/SpotifyServices";
+import { useSearchParams } from "react-router-dom";
 import Post from "../models/Post";
 
 interface SingleProps {
     token: string;
+
     setCurrentMusic: (e: string) => void;
 }
 
 export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Element {
-    const [isLoaded, setIsLoaded] = useState(false);
-
     const [post, setPost] = useState<Post>({
         id: "",
         preview_url: "",
         name: "",
         uri: "",
-        album: {
-            id: "",
-            preview_url: "",
-            name: "",
-            images: [],
-            artists: { id: "", name: "", external_urls: { spotify: "" } },
-        },
-        artists: [],
-        duration_ms: 0,
         type: "",
+        release_date: "",
+        total_tracks: 0,
+        label: "",
+        genres: [],
     });
-    const { id } = useParams();
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [params, setParams] = useSearchParams();
 
-    const getTrack = async () => {
-        const track = await spotifyServices.getTrackById(token, id!);
-        setPost(track);
-    };
+    const id = params.get("id");
+    const type = params.get("type");
 
     useEffect(() => {
         token && getTrack();
-    }, [token]);
+    }, [token, id, type]);
+
+    const getTrack = async () => {
+        const track = await spotifyServices.getObjectById(token, id!, type!);
+        setPost(track);
+    };
 
     return (
-        <section className="c-home w-full desktop:mt-10 pb-24 desktop:pb-40 pt-20 md:pt-8 desktop:pt-8 desktop:px-8 desktop:mb-56 flex justify-between flex-wrap">
+        <section className="c-home w-full desktop:mt-10 pb-24 desktop:pb-10 pt-20 md:pt-8 desktop:pt-8 desktop:px-8 desktop:mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-4/12 px-2 desktop:px-0 order-2 desktop:order-1">
                 <Sidebar>
                     <>
                         <img
                             className={`w-full h-max bg-accent rounded object-cover ${isLoaded ? "block" : "hidden"}`}
-                            src={post && post.album.images[0]?.url}
+                            src={
+                                post && type === "track"
+                                    ? post.album?.images[0]?.url
+                                    : post.images && post.images[0].url
+                            }
                             alt="post pic"
                             onLoad={() => setIsLoaded(true)}
                         />
@@ -72,7 +70,7 @@ export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Ele
             </div>
 
             <div className="w-full desktop:w-8/12 order-1 desktop:order-2">
-                <Content postData={post && post} handlePlay={setCurrentMusic} />
+                <Content type={type!} postData={post && post} handlePlay={setCurrentMusic} />
             </div>
         </section>
     );
