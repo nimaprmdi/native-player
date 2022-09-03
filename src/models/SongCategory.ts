@@ -8,6 +8,7 @@ export default interface SongCategory {
 
 interface SongCategoryItems {
     id: string;
+    type: string;
     name: string;
     description: string;
     images: TrackImages[];

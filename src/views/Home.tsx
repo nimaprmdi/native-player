@@ -35,9 +35,11 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                     <>
                         {recommendedTracks.tracks.map((track, index) => {
                             return (
+                                track.preview_url &&
                                 index < 4 && (
                                     <CardCaption
                                         id={track.id}
+                                        type={track.type}
                                         key={`recommendedTracks-track-item-${index}`}
                                         image={track.album.images[0].url}
                                     />
@@ -49,18 +51,18 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                 <GridTitle title="Related Playlists" customClass="mt-12" />
                 <GridMd>
                     <>
-                        {playListsByCats &&
-                            playListsByCats.playlists.items.map((item, index) => {
-                                return (
-                                    index < 4 && (
-                                        <CardCaption
-                                            id={item.id}
-                                            key={`recommendedTracks-track-item-${index}`}
-                                            image={item.images[0].url}
-                                        />
-                                    )
-                                );
-                            })}
+                        {playListsByCats.playlists.items.map((playList, index) => {
+                            return (
+                                index < 4 && (
+                                    <CardCaption
+                                        id={playList.id}
+                                        type={playList.type}
+                                        key={`recommendedTracks-track-item-${index}`}
+                                        image={playList.images[0].url}
+                                    />
+                                )
+                            );
+                        })}
                     </>
                 </GridMd>
             </div>
@@ -68,7 +70,6 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
             <div className="w-full desktop:w-2/5">
                 <Sidebar className="px-2 desktop:px-0 desktop:pl-8">
                     <Video />
-
                     <Advertise />
                     <Plans />
                 </Sidebar>

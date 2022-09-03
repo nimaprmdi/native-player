@@ -67,16 +67,29 @@ class SpotifyServices {
         return data;
     };
 
-    getTrackById = async (token: string, trackId: string) => {
-        const { data } = await this.http.get(`/tracks/${trackId}`, {
+    getObjectById = async (token: string, objectId: string, type: string) => {
+        let endPoint: string = "";
+        switch (type) {
+            case "album":
+                endPoint = "/albums/";
+                break;
+            case "artist":
+                endPoint = "/artists/";
+                break;
+            case "track":
+                endPoint = "/tracks/";
+                break;
+            case "playlist":
+                endPoint = "/playlists/";
+                break;
+            default:
+                endPoint = "/tracks/";
+                break;
+        }
+        const { data } = await this.http.get(`${endPoint}${objectId}`, {
             headers: this.getHeaders(token),
         });
         return data;
-    };
-
-    logOutSpotify = (setToken: Function) => {
-        setToken("");
-        window.localStorage.removeItem("token");
     };
 
     searchArtist = async (e: React.FormEvent, token: string, searchKey: string, setArtists: Function) => {
@@ -90,6 +103,11 @@ class SpotifyServices {
         });
 
         setArtists(data.artists?.items);
+    };
+
+    logOutSpotify = (setToken: Function) => {
+        setToken("");
+        window.localStorage.removeItem("token");
     };
 
     CLIENT_ID = "96757c15e2c14a3d8b9e199048d02fbc";

@@ -6,6 +6,7 @@ export default interface Recommendation {
 
 export interface RecommendedTracks {
     id: string;
+    type: string;
     name: string;
     preview_url: string;
     artists: { name: string };
