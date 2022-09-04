@@ -23,11 +23,5 @@ export const navigation: Navigate[] = [
     },
     { name: "radio", route: "/radio", icon: "eva:radio-outline" },
     { name: "browse", route: "/browse", icon: "bx:user-pin" },
-    {
-        name: "404",
-        route: "/404",
-        icon: "tabler:error-404",
-    },
     { name: "contact", route: "/contact", icon: "akar-icons:phone" },
-    { name: "contact", route: "/single", icon: "bi:file-earmark-post" },
 ];

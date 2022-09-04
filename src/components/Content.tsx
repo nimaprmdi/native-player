@@ -7,24 +7,26 @@ import Post from "../models/Post";
 import { Icon } from "@iconify/react";
 import { millisecondsToMinutes } from "../utils/helpers";
 import { Link } from "react-router-dom";
+import Recommendation from "../models/Recommendation";
 
 interface ContentProps {
     postData: Post;
     type: string;
     handlePlay: (e: string) => void;
+    recommendedTracks: Recommendation;
 }
 
-const Content = ({ postData, type, handlePlay }: ContentProps): JSX.Element => {
-    const [featuredImage, setFeaturedImage] = useState("");
-
+const Content = ({ postData, type, handlePlay, recommendedTracks }: ContentProps): JSX.Element => {
     useEffect(() => {}, [postData]);
 
     return (
         <article className="w-full mb-8">
-            <h2 className="c-content__title text-h2 pl-4 leading-8">{postData.name}</h2>
+            <h2 className="c-content__title text-h2 pl-4 leading-8">
+                {postData.name} ({type})
+            </h2>
 
             <div className="c-content__meta w-full flex flex-wrap gap-3 justify-start items-center pl-4 mt-8 mb-8">
-                {type !== "artist" && (
+                {type === "track" && (
                     <div className="flex items-center mr-1 desktop:mr-6">
                         <Icon className="text-gray-500" icon="ant-design:user-outlined" />
                         <span className="text-gray-500 ml-1">
@@ -47,7 +49,7 @@ const Content = ({ postData, type, handlePlay }: ContentProps): JSX.Element => {
                     </div>
                 )}
 
-                {type !== "artist" && (
+                {type === "track" && (
                     <div className="flex items-center mr-1 desktop:mr-6">
                         <Icon className="text-gray-500" icon="akar-icons:clock" />
                         <span className="text-gray-500 ml-1">
@@ -71,13 +73,15 @@ const Content = ({ postData, type, handlePlay }: ContentProps): JSX.Element => {
                 <div className="w-full flex flex-wrap desktop:flex-nowrap justify-start gap-2 px-2">
                     {postData.type === "track" && (
                         <>
-                            <SingleCards
-                                icon="ant-design:play-circle-filled"
-                                title="Play The Music"
-                                btnText="Play now"
-                                url="#"
-                                functional={() => handlePlay(postData.preview_url)}
-                            />
+                            {postData.preview_url && (
+                                <SingleCards
+                                    icon="ant-design:play-circle-filled"
+                                    title="Play The Music"
+                                    btnText="Play now"
+                                    url="#"
+                                    functional={() => handlePlay(postData.preview_url)}
+                                />
+                            )}
 
                             <SingleCards
                                 icon="dashicons:album"
@@ -139,6 +143,26 @@ const Content = ({ postData, type, handlePlay }: ContentProps): JSX.Element => {
                         </>
                     )}
 
+                    {postData.type === "playlist" && (
+                        <>
+                            <SingleCards
+                                icon="humbleicons:user-asking"
+                                title="Owner"
+                                btnText={postData.owner?.display_name ? postData.owner.display_name : " "}
+                                url={postData.external_urls?.spotify || ""}
+                                isLink={true}
+                            />
+
+                            <SingleCards
+                                icon="fluent:people-audience-20-regular"
+                                title="followers"
+                                btnText={postData.followers?.total ? postData.followers.total.toString() : ""}
+                                url={postData.external_urls?.spotify || ""}
+                                isLink={true}
+                            />
+                        </>
+                    )}
+
                     <SingleCards
                         icon="akar-icons:spotify-fill"
                         title="Open in spotify"
@@ -151,7 +175,23 @@ const Content = ({ postData, type, handlePlay }: ContentProps): JSX.Element => {
                 <div className="w-full order-3 desktop:order-3">
                     <GridTitle title="New Releases" customClass="mt-6" readMore={false} />
 
-                    <Carousel>{/* <CardPinkRibbon id={postData.id} image={} name={postData.name} /> */}</Carousel>
+                    <Carousel>
+                        {recommendedTracks.tracks.map((track, index) => {
+                            return (
+                                <>
+                                    {index < 8 && (
+                                        <CardPinkRibbon
+                                            key={`recommended-tracks-content-${track.id + Math.random() * 100}`}
+                                            id={track.id}
+                                            image={track.album.images[0].url}
+                                            name={track.name}
+                                            type="track"
+                                        />
+                                    )}
+                                </>
+                            );
+                        })}
+                    </Carousel>
                 </div>
             </div>
         </article>

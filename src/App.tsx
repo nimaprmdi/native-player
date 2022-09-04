@@ -25,6 +25,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/common/ScrollToTop";
 import { APITypes } from "plyr-react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
 function App(): JSX.Element {
     const [token, setToken] = useState("");
     const [searchKey, setSearchKey] = useState("");
@@ -41,27 +44,28 @@ function App(): JSX.Element {
 
     const getRecommendedTracks = async () => {
         const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
-        setRecommendedTracks(recommendedTracksLocal);
+        setRecommendedTracks(recommendedTracksLocal.data);
     };
 
     const getPlayListsByCats = async () => {
         const topItems = await spotifyService.getPlayListsByCat(token);
-        setPlayListsByCats(topItems);
+        console.log(topItems);
+        // setPlayListsByCats(topItems);
     };
 
     const getFeaturedAlbums = async () => {
         const featuredAlbums = await spotifyService.getFeaturedAlbums(token);
-        setFeaturedAlbums(featuredAlbums);
+        setFeaturedAlbums(featuredAlbums.data);
     };
 
     const getFeaturedPlayList = async () => {
-        const featuredPlayList: FeaturedPlayLists = await spotifyService.getFeaturedPlayList(token);
-        setFeaturedPlayList(featuredPlayList);
+        const featuredPlayList = await spotifyService.getFeaturedPlayList(token);
+        setFeaturedPlayList(featuredPlayList.data);
     };
 
     const getRelatedArtists = async () => {
         const relatedArtists = await spotifyService.getRelatedArtists(token);
-        setRelatedArtists(relatedArtists);
+        setRelatedArtists(relatedArtists.data);
     };
 
     const handleToggle = () => {
@@ -109,6 +113,8 @@ function App(): JSX.Element {
             <ScrollToTop />
 
             <div className="App min-h-screen">
+                <ToastContainer />
+
                 <section className="c-page__aside">
                     <Navigation asideToggle={asideToggle} />
                 </section>
@@ -155,7 +161,13 @@ function App(): JSX.Element {
                         <Route path="/contact" element={<Contact />} />
                         <Route
                             path="/single"
-                            element={<Single token={token} setCurrentMusic={(e) => handleAudioChange(e)} />}
+                            element={
+                                <Single
+                                    token={token}
+                                    setCurrentMusic={(e) => handleAudioChange(e)}
+                                    recommendedTracks={recommendedTracks}
+                                />
+                            }
                         />
 
                         <Route path="*" element={<Navigate replace to="/404" />} />

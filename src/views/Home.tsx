@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Carousel from "../components/common/Carousel";
 import GridMd from "../components/common/GridMd";
 import Sidebar from "../components/common/Sidebar";
@@ -6,14 +5,9 @@ import Slider from "../components/Slider";
 import CardCaption from "../components/common/cards/CardCaption";
 import CardPinkRibbon from "../components/common/cards/CardPinkRibbon";
 import GridTitle from "../components/common/GridTitle";
-import VideoList from "../components/common/VideoList";
 import Advertise from "../components/common/Advertise";
 import Plans from "../components/common/Plans";
-import CardRibbon from "../components/common/cards/CardRibbon";
-import Card from "../components/common/cards/Card";
 import Video from "../components/common/Video";
-import FeaturedPlayLists from "../models/FeaturedPlayLists";
-import { Link } from "react-router-dom";
 import Recommendation from "../models/Recommendation";
 import SongCategory from "../models/SongCategory";
 import FeaturedAlbums from "../models/FeturedAlbums";
@@ -35,19 +29,20 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                     <>
                         {recommendedTracks.tracks.map((track, index) => {
                             return (
-                                track.preview_url &&
                                 index < 4 && (
                                     <CardCaption
                                         id={track.id}
                                         type={track.type}
                                         key={`recommendedTracks-track-item-${index}`}
                                         image={track.album.images[0].url}
+                                        name={track.name}
                                     />
                                 )
                             );
                         })}
                     </>
                 </GridMd>
+
                 <GridTitle title="Related Playlists" customClass="mt-12" />
                 <GridMd>
                     <>
@@ -59,6 +54,7 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                                         type={playList.type}
                                         key={`recommendedTracks-track-item-${index}`}
                                         image={playList.images[0].url}
+                                        name={playList.name}
                                     />
                                 )
                             );
@@ -86,6 +82,7 @@ const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps)
                                 key={`Featured-Albums-${index}`}
                                 image={album.images[0].url}
                                 name={album.name}
+                                type={"album"}
                             />
                         );
                     })}

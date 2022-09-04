@@ -8,14 +8,16 @@ import Video from "../components/common/Video";
 import spotifyServices from "../services/SpotifyServices";
 import { useSearchParams } from "react-router-dom";
 import Post from "../models/Post";
+import Recommendation from "../models/Recommendation";
+// import ArtistTopSongs from ""
 
 interface SingleProps {
     token: string;
-
+    recommendedTracks: Recommendation;
     setCurrentMusic: (e: string) => void;
 }
 
-export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Element {
+export default function Single({ token, setCurrentMusic, recommendedTracks }: SingleProps): JSX.Element {
     const [post, setPost] = useState<Post>({
         id: "",
         preview_url: "",
@@ -28,6 +30,8 @@ export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Ele
         genres: [],
     });
     const [isLoaded, setIsLoaded] = useState(false);
+    const [artistTracks, setArtistTracks] = useState("");
+
     const [params, setParams] = useSearchParams();
 
     const id = params.get("id");
@@ -35,11 +39,18 @@ export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Ele
 
     useEffect(() => {
         token && getTrack();
+        token && type === "artist" && getArtistTopSongs();
     }, [token, id, type]);
 
     const getTrack = async () => {
         const track = await spotifyServices.getObjectById(token, id!, type!);
-        setPost(track);
+        setPost(track.data);
+    };
+
+    const getArtistTopSongs = async () => {
+        const artistTopSongs = await spotifyServices.getArtistTopTracks(token, id!);
+        console.log(artistTopSongs);
+        // setArtistTracks(artistTopSongs);
     };
 
     return (
@@ -62,15 +73,19 @@ export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Ele
                             <div className="c-card__loader w-full h-96 before:h-96 relative before:rounded"></div>
                         )}
                     </>
-                    <GridTitle title="New Videos" customClass="mt-8" readMore={false} badge={false} />
+
+                    <GridTitle title="New Videos" customClass="mt-8" readMore={false} badge={true} />
                     <Video />
-                    <Advertise />
-                    <Plans />
                 </Sidebar>
             </div>
 
             <div className="w-full desktop:w-8/12 order-1 desktop:order-2">
-                <Content type={type!} postData={post && post} handlePlay={setCurrentMusic} />
+                <Content
+                    type={type!}
+                    postData={post && post}
+                    handlePlay={setCurrentMusic}
+                    recommendedTracks={recommendedTracks}
+                />
             </div>
         </section>
     );

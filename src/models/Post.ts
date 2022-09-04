@@ -18,4 +18,5 @@ export default interface Post {
     label: string;
     genres?: string[];
     followers?: { total: number };
+    owner?: { display_name: string };
 }

@@ -40,7 +40,7 @@ const Header = ({
                     key={index}
                     id={artist.id}
                     readMore={false}
-                    name={artist.name}
+                    name={artist.name ? artist.name : "Artist Picture"}
                     image={artist.images[0].url}
                 />
             );

@@ -1,14 +1,10 @@
-import axios from "axios";
 import { ArtitstsObj } from "../models/Artists";
 import FeaturedPlayLists from "../models/FeaturedPlayLists";
 import Recommendation from "../models/Recommendation";
 import SongCategory from "../models/SongCategory";
+import http from "./httpService";
 
 class SpotifyServices {
-    http = axios.create({
-        baseURL: "https://api.spotify.com/v1/",
-    });
-
     private getHeaders = (token: string) => {
         return {
             Accept: "application/json",
@@ -18,15 +14,15 @@ class SpotifyServices {
     };
 
     getFeaturedPlayList = async (token: string) => {
-        const { data } = await this.http.get<FeaturedPlayLists>("/playlists/1bAxUEAiPtRRMsnHbkz7vP", {
+        const { data, status } = await http.get<FeaturedPlayLists>("/playlists/1bAxUEAiPtRRMsnHbkz7vP", {
             headers: this.getHeaders(token),
         });
 
-        return data;
+        return { data, status };
     };
 
     getRecommendedTracks = async (token: string) => {
-        const { data } = await this.http.get<Recommendation>("/recommendations", {
+        const { data, status } = await http.get<Recommendation>("/recommendations", {
             headers: this.getHeaders(token),
             params: {
                 seed_artists: "2CIMQHirSU0MQqyYHq0eOx",
@@ -35,36 +31,43 @@ class SpotifyServices {
                 limit: 24,
             },
         });
-        return data;
+        return { data, status };
     };
 
     getPlayListsByCat = async (token: string) => {
-        const { data } = await this.http.get<SongCategory>("browse/categories/edm_dance/playlists", {
+        const { data, status } = await http.get<SongCategory>("browse/categories/edm_dance/playlists", {
             headers: this.getHeaders(token),
             params: {
                 limit: 12,
             },
         });
-
-        return data;
+        return { data, status };
     };
 
     getFeaturedAlbums = async (token: string) => {
-        const { data } = await this.http.get("/albums", {
+        const { data, status } = await http.get("/albums", {
             headers: this.getHeaders(token),
             params: {
                 ids: "4CJz7SiuYgxGPQSk4RMXBc,6CIslPQSknp875cigkhKJC,7wHRbv2KffwwK0sSZu7YI5,5YBZo3FqPKyuFKJcn8e7js,0nSJya8Yd1OXtXiQjkXZLO,5xjXARHTm4YSmQPDDFZO0W,3xp9A0kXzxqUztRASTjVD5,57bABnvvPfNhBQRI70dqlU,3yyMpOkLtbcbVJFzEESLN0,0MxnDPoKo4ohNSdnuZpIxg",
             },
         });
 
-        return data;
+        return { data, status };
     };
 
     getRelatedArtists = async (token: string) => {
-        const { data } = await this.http.get<ArtitstsObj>("/artists/2CIMQHirSU0MQqyYHq0eOx/related-artists", {
+        const { data, status } = await http.get<ArtitstsObj>("/artists/2CIMQHirSU0MQqyYHq0eOx/related-artists", {
             headers: this.getHeaders(token),
         });
-        return data;
+        return { data, status };
+    };
+
+    getArtistTopTracks = async (token: string, artistId: string) => {
+        const { data, status } = await http.get(`/artists/${artistId}/top-tracks`, {
+            headers: this.getHeaders(token),
+            params: { market: "US" },
+        });
+        return { data, status };
     };
 
     getObjectById = async (token: string, objectId: string, type: string) => {
@@ -86,15 +89,15 @@ class SpotifyServices {
                 endPoint = "/tracks/";
                 break;
         }
-        const { data } = await this.http.get(`${endPoint}${objectId}`, {
+        const { data, status } = await http.get(`${endPoint}${objectId}`, {
             headers: this.getHeaders(token),
         });
-        return data;
+        return { data, status };
     };
 
     searchArtist = async (e: React.FormEvent, token: string, searchKey: string, setArtists: Function) => {
         e.preventDefault();
-        const { data } = await this.http.get("/search", {
+        const { data, status } = await http.get("/search", {
             headers: this.getHeaders(token),
             params: {
                 q: searchKey,
