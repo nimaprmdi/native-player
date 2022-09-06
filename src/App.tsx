@@ -85,7 +85,7 @@ function App(): JSX.Element {
             setToken("");
             navigate("/login");
         }
-    }, [window.location.href]);
+    }, [window.location.href, token]);
 
     return (
         <>
@@ -99,53 +99,23 @@ function App(): JSX.Element {
                 </section>
 
                 <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
-                    <Header
-                        setToken={setToken}
-                        searchKey={searchKey}
-                        setSearchKey={setSearchKey}
-                        token={token}
-                        onAsideToggle={handleToggle}
-                        currentMusic={currentMusic}
-                        audioRef={audioRef}
-                    />
+                    <Header setToken={setToken} searchKey={searchKey} setSearchKey={setSearchKey} token={token} onAsideToggle={handleToggle} currentMusic={currentMusic} audioRef={audioRef} />
 
                     <Routes>
                         <Route
                             path="/"
                             element={
                                 <FeaturedPlayListsContext.Provider value={featuredPlayList}>
-                                    <Home
-                                        recommendedTracks={recommendedTracks}
-                                        playListsByCats={playListsByCats}
-                                        featuredAlbums={featuredAlbums}
-                                    />
+                                    <Home recommendedTracks={recommendedTracks} playListsByCats={playListsByCats} featuredAlbums={featuredAlbums} />
                                 </FeaturedPlayListsContext.Provider>
                             }
                         />
-                        <Route
-                            path="/radio"
-                            element={
-                                <Radio
-                                    recommendedTracks={recommendedTracks}
-                                    playListsByCats={playListsByCats}
-                                    featuredAlbums={featuredAlbums}
-                                />
-                            }
-                        />
+                        <Route path="/radio" element={<Radio recommendedTracks={recommendedTracks} playListsByCats={playListsByCats} featuredAlbums={featuredAlbums} />} />
                         <Route path="/browse" element={<Browse relatedArtists={relatedArtists.artists} />} />
                         <Route path="/404" element={<NotFound />} />
                         {/* <Route path="/blog" element={<Blog />} /> */}
                         <Route path="/contact" element={<Contact />} />
-                        <Route
-                            path="/single"
-                            element={
-                                <Single
-                                    token={token}
-                                    setCurrentMusic={(e) => handleAudioChange(e)}
-                                    recommendedTracks={recommendedTracks}
-                                />
-                            }
-                        />
+                        <Route path="/single" element={<Single token={token} setCurrentMusic={(e) => handleAudioChange(e)} recommendedTracks={recommendedTracks} />} />
 
                         <Route path="/login" element={<Login />} />
 

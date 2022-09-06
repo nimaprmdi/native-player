@@ -37,6 +37,7 @@ const Header = ({ onAsideToggle, searchKey, setSearchKey, token, currentMusic, a
 
     const logout = () => {
         spotifyService.logOutSpotify(setToken);
+        setToken("");
     };
 
     const handleClose = () => {

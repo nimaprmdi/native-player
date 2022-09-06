@@ -8,6 +8,7 @@ import Video from "../components/common/Video";
 import spotifyServices from "../services/SpotifyServices";
 import Post from "../models/Post";
 import Recommendation from "../models/Recommendation";
+import { ArtistTopSongs } from "../models/Artists";
 import noThumbnail from "../assets/images/no-thumbnail.png";
 import { useSearchParams } from "react-router-dom";
 
@@ -30,7 +31,7 @@ export default function Single({ token, setCurrentMusic, recommendedTracks }: Si
         genres: [],
     });
     const [isLoaded, setIsLoaded] = useState(false);
-    const [artistTracks, setArtistTracks] = useState("");
+    const [artistTracks, setArtistTracks] = useState<ArtistTopSongs>({ tracks: [] });
     const [params, setParams] = useSearchParams();
 
     const id = params.get("id");
@@ -69,7 +70,7 @@ export default function Single({ token, setCurrentMusic, recommendedTracks }: Si
             </div>
 
             <div className="w-full desktop:w-8/12 order-1 desktop:order-2">
-                <Content type={type!} postData={post && post} handlePlay={setCurrentMusic} recommendedTracks={recommendedTracks} />
+                <Content type={type!} postData={post && post} handlePlay={setCurrentMusic} recommendedTracks={recommendedTracks} artistTracks={artistTracks} />
             </div>
         </section>
     );

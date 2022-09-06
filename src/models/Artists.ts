@@ -1,4 +1,4 @@
-import { TrackItems } from "./FeaturedPlayLists";
+import { TrackImages } from "./FeaturedPlayLists";
 
 export interface ArtitstsObj {
     artists: Artists[];
@@ -19,5 +19,18 @@ interface ArtistImages {
 }
 
 export interface ArtistTopSongs {
-    tracks: TrackItems[];
+    tracks: ArtistsTopSongsItems[];
+}
+
+interface ArtistsTopSongsItems {
+    album: {
+        id: string;
+        images: TrackImages[];
+        name: string;
+    };
+    id: string;
+    name: string;
+    artists: {
+        name: string;
+    };
 }
