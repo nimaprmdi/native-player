@@ -127,7 +127,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks }: ContentProps
                                 btnText={
                                     postData.genres && postData.genres.length > 0
                                         ? postData.genres?.map((genre) => genre).toString()
-                                        : ""
+                                        : "no data found"
                                 }
                                 url={postData.external_urls?.spotify || ""}
                                 isLink={true}
@@ -137,7 +137,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks }: ContentProps
                                 icon="fluent:people-audience-20-regular"
                                 title="followers"
                                 btnText={postData.followers?.total ? postData.followers.total.toString() : ""}
-                                url={postData.external_urls?.spotify || ""}
+                                url={postData.external_urls?.spotify || "no data found"}
                                 isLink={true}
                             />
                         </>
