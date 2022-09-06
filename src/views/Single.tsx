@@ -6,10 +6,10 @@ import Plans from "../components/common/Plans";
 import Content from "../components/Content";
 import Video from "../components/common/Video";
 import spotifyServices from "../services/SpotifyServices";
-import { useSearchParams } from "react-router-dom";
 import Post from "../models/Post";
 import Recommendation from "../models/Recommendation";
-// import ArtistTopSongs from ""
+import noThumbnail from "../assets/images/no-thumbnail.png";
+import { useSearchParams } from "react-router-dom";
 
 interface SingleProps {
     token: string;
@@ -52,6 +52,15 @@ export default function Single({ token, setCurrentMusic, recommendedTracks }: Si
         setArtistTracks(artistTopSongs.data);
     };
 
+    const featuredImage =
+        post && type === "track"
+            ? post.album!.images.length > 0
+                ? post.album?.images[0]?.url
+                : noThumbnail
+            : post.images && post.images.length > 0
+            ? post.images[0].url
+            : noThumbnail;
+
     return (
         <section className="c-home w-full desktop:mt-10 pb-24 desktop:pb-10 pt-20 md:pt-8 desktop:pt-8 desktop:px-8 desktop:mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-4/12 px-2 desktop:px-0 order-2 desktop:order-1">
@@ -59,11 +68,7 @@ export default function Single({ token, setCurrentMusic, recommendedTracks }: Si
                     <>
                         <img
                             className={`w-full h-max bg-accent rounded object-cover ${isLoaded ? "block" : "hidden"}`}
-                            src={
-                                post && type === "track"
-                                    ? post.album?.images[0]?.url
-                                    : post.images && post.images[0].url
-                            }
+                            src={featuredImage}
                             alt="post pic"
                             onLoad={() => setIsLoaded(true)}
                         />

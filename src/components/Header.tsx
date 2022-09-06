@@ -32,13 +32,15 @@ const Header = ({
 
     const renderArtist = () => {
         const artistSearch = artists.map((artist, index) => {
+            console.log(artist);
+
             return (
                 <CardCaption
                     key={index}
                     id={artist.id}
                     readMore={false}
                     name={artist.name ? artist.name : "Artist Picture"}
-                    image={artist.images[0].url}
+                    image={artist.images.length > 0 ? artist.images[0].url : ""}
                     type="artist"
                     functional={() => setVisibleModal(false)}
                 />
@@ -49,8 +51,9 @@ const Header = ({
     };
 
     const handleArtists = async (e: React.FormEvent) => {
-        console.log(e);
-        console.log(await spotifyService.searchArtist(e, token, searchKey, setArtists));
+        const artists = await spotifyService.searchArtist(e, token, searchKey);
+        console.log(artists);
+        setArtists(artists.items);
     };
 
     const logout = () => {

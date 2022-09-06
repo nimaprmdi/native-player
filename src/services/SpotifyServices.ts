@@ -95,7 +95,7 @@ class SpotifyServices {
         return { data, status };
     };
 
-    searchArtist = async (e: React.FormEvent, token: string, searchKey: string, setArtists: Function) => {
+    searchArtist = async (e: React.FormEvent, token: string, searchKey: string) => {
         e.preventDefault();
         const { data, status } = await http.get("/search", {
             headers: this.getHeaders(token),
@@ -105,7 +105,7 @@ class SpotifyServices {
             },
         });
 
-        setArtists(data.artists?.items);
+        return data.artists;
     };
 
     logOutSpotify = (setToken: Function) => {
