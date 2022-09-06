@@ -14,9 +14,25 @@ axsiosSpotifyInstance.interceptors.response.use(
             toast.error("An unexpected error occurrred.");
         }
 
-        toast.error(error.message);
-        if (window.location.pathname !== "/login" && error.response.status === 401) window.location.href = "/login";
+        if (error.response.status === 400) {
+            toast.error("Bad Request - The request could not be understood by the server");
+        } else if (error.response.status === 401) {
+            toast.error("Unauthorized - The request requires user authentication");
+        } else if (error.response.status === 403) {
+            toast.error("Forbidden - The server understood the request, but is refusing to fulfill it.");
+        } else if (error.response.status === 404) {
+            toast.error("Not Found - The requested resource could not be found.");
+        } else if (error.response.status === 429) {
+            toast.error("Too Many Requests");
+        } else {
+            toast.error(error.message);
+        }
+
         window.localStorage.removeItem("token");
+
+        if (window.location.pathname !== "/login") {
+            window.location.href = "/login";
+        }
 
         return Promise.reject(error);
     }
