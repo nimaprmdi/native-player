@@ -49,8 +49,7 @@ export default function Single({ token, setCurrentMusic, recommendedTracks }: Si
 
     const getArtistTopSongs = async () => {
         const artistTopSongs = await spotifyServices.getArtistTopTracks(token, id!);
-        console.log(artistTopSongs);
-        // setArtistTracks(artistTopSongs);
+        setArtistTracks(artistTopSongs.data);
     };
 
     return (

@@ -21,7 +21,7 @@ interface HomeProps {
 const Home = ({ recommendedTracks, playListsByCats, featuredAlbums }: HomeProps): JSX.Element => {
     return (
         <section className="c-home w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
-            <div className="w-full desktop:w-3/5 mt-">
+            <div className="w-full desktop:w-3/5">
                 <Slider />
 
                 <GridTitle title="Recommended Songs" customClass="mt-16" />

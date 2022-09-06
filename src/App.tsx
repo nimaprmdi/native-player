@@ -8,9 +8,10 @@ import Home from "./views/Home";
 import Radio from "./views/Radio";
 import Browse from "./views/Browse";
 import NotFound from "./views/NotFound";
-import Blog from "./views/Blog";
 import Contact from "./views/Contact";
 import Single from "./views/Single";
+// import Blog from "./views/Blog";
+import Login from "./views/Login";
 // Models
 import Artists, { ArtitstsObj } from "./models/Artists";
 import FeaturedPlayLists from "./models/FeaturedPlayLists";
@@ -18,20 +19,18 @@ import FeaturedPlayListsContext from "./utils/context/featuredPlayLists";
 import Recommendation from "./models/Recommendation";
 import SongCategory from "./models/SongCategory";
 import FeaturedAlbums from "./models/FeturedAlbums";
-// Services
-import spotifyService from "./services/SpotifyServices";
 // Third-Party
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import ScrollToTop from "./components/common/ScrollToTop";
 import { APITypes } from "plyr-react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+// Requesters
+import * as requester from "./services/requesters";
 
 function App(): JSX.Element {
     const [token, setToken] = useState("");
     const [searchKey, setSearchKey] = useState("");
-    const [artists, setArtists] = useState<Artists[]>([]);
     const [asideToggle, setAsideToggle] = useState(false);
     const [featuredPlayList, setFeaturedPlayList] = useState<FeaturedPlayLists>({ name: "", tracks: { items: [] } });
     const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
@@ -41,32 +40,7 @@ function App(): JSX.Element {
     const [currentMusic, setCurrentMusic] = useState("");
 
     const audioRef = useRef<APITypes>(null);
-
-    const getRecommendedTracks = async () => {
-        const recommendedTracksLocal = await spotifyService.getRecommendedTracks(token);
-        setRecommendedTracks(recommendedTracksLocal.data);
-    };
-
-    const getPlayListsByCats = async () => {
-        const topItems = await spotifyService.getPlayListsByCat(token);
-        console.log(topItems);
-        // setPlayListsByCats(topItems);
-    };
-
-    const getFeaturedAlbums = async () => {
-        const featuredAlbums = await spotifyService.getFeaturedAlbums(token);
-        setFeaturedAlbums(featuredAlbums.data);
-    };
-
-    const getFeaturedPlayList = async () => {
-        const featuredPlayList = await spotifyService.getFeaturedPlayList(token);
-        setFeaturedPlayList(featuredPlayList.data);
-    };
-
-    const getRelatedArtists = async () => {
-        const relatedArtists = await spotifyService.getRelatedArtists(token);
-        setRelatedArtists(relatedArtists.data);
-    };
+    const navigate = useNavigate();
 
     const handleToggle = () => {
         setAsideToggle(!asideToggle);
@@ -81,11 +55,11 @@ function App(): JSX.Element {
     };
 
     useEffect(() => {
-        token && getRecommendedTracks();
-        token && getPlayListsByCats();
-        token && getFeaturedAlbums();
-        token && getFeaturedPlayList();
-        token && getRelatedArtists();
+        token && requester.getRecommendedTracks(token, setRecommendedTracks);
+        token && requester.getPlayListsByCats(token, setPlayListsByCats);
+        token && requester.getFeaturedAlbums(token, setFeaturedAlbums);
+        token && requester.getFeaturedPlayList(token, setFeaturedPlayList);
+        token && requester.getRelatedArtists(token, setRelatedArtists);
     }, [token]);
 
     useEffect(() => {
@@ -106,10 +80,15 @@ function App(): JSX.Element {
         setToken(token!);
     }, []);
 
-    useEffect(() => {}, [featuredPlayList]);
+    useEffect(() => {
+        if (!window.localStorage.getItem("token")) {
+            setToken("");
+            navigate("/login");
+        }
+    }, [window.location.href]);
 
     return (
-        <BrowserRouter>
+        <>
             <ScrollToTop />
 
             <div className="App min-h-screen">
@@ -121,13 +100,11 @@ function App(): JSX.Element {
 
                 <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
                     <Header
-                        logout={() => spotifyService.logOutSpotify(setToken)}
-                        searchArtist={(e) => spotifyService.searchArtist(e, token, searchKey, setArtists)}
+                        setToken={setToken}
+                        searchKey={searchKey}
                         setSearchKey={setSearchKey}
                         token={token}
                         onAsideToggle={handleToggle}
-                        artists={artists}
-                        setArtists={setArtists}
                         currentMusic={currentMusic}
                         audioRef={audioRef}
                     />
@@ -170,11 +147,13 @@ function App(): JSX.Element {
                             }
                         />
 
+                        <Route path="/login" element={<Login />} />
+
                         <Route path="*" element={<Navigate replace to="/404" />} />
                     </Routes>
                 </section>
             </div>
-        </BrowserRouter>
+        </>
     );
 }
 

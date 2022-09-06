@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
-import Artist from "../models/Artists";
+import Artists from "../models/Artists";
 import spotifyService from "../services/SpotifyServices";
 import SearchModal from "./common/SearchModal";
 import GridMd from "./common/GridMd";
@@ -9,28 +9,25 @@ import Audio from "../components/common/Audio";
 import { APITypes } from "plyr-react";
 
 interface HeaderProps {
-    onAsideToggle: () => void;
-    logout: () => void;
-    searchArtist: (e: React.FormEvent) => void;
-    setSearchKey: (e: string) => void;
-    setArtists: (artists: Artist[]) => void;
-    token: string;
-    artists: Artist[];
-    currentMusic: string;
     audioRef: React.RefObject<APITypes>;
+    onAsideToggle: () => void;
+    setSearchKey: (e: string) => void;
+    setToken: (e: string) => void;
+    searchKey: string;
+    token: string;
+    currentMusic: string;
 }
 
 const Header = ({
     onAsideToggle,
-    logout,
-    searchArtist,
+    searchKey,
     setSearchKey,
-    setArtists,
-    artists,
     token,
     currentMusic,
     audioRef,
+    setToken,
 }: HeaderProps): JSX.Element => {
+    const [artists, setArtists] = useState<Artists[]>([]);
     const [visibleModal, setVisibleModal] = useState(false);
 
     const renderArtist = () => {
@@ -42,11 +39,22 @@ const Header = ({
                     readMore={false}
                     name={artist.name ? artist.name : "Artist Picture"}
                     image={artist.images[0].url}
+                    type="artist"
+                    functional={() => setVisibleModal(false)}
                 />
             );
         });
 
         return artistSearch;
+    };
+
+    const handleArtists = async (e: React.FormEvent) => {
+        console.log(e);
+        console.log(await spotifyService.searchArtist(e, token, searchKey, setArtists));
+    };
+
+    const logout = () => {
+        spotifyService.logOutSpotify(setToken);
     };
 
     const handleClose = () => {
@@ -102,7 +110,7 @@ const Header = ({
                 <SearchModal>
                     {token ? (
                         <>
-                            <form onSubmit={searchArtist}>
+                            <form onSubmit={handleArtists}>
                                 <div className="flex justify-between gap-4">
                                     <input
                                         className="my-1"

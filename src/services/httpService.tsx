@@ -9,11 +9,15 @@ axsiosSpotifyInstance.interceptors.response.use(
     (response: AxiosResponse) => response,
     (error) => {
         const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
+
         if (!expectedError) {
             toast.error("An unexpected error occurrred.");
         }
 
         toast.error(error.message);
+        if (window.location.pathname !== "/login" && error.response.status === 401) window.location.href = "/login";
+        window.localStorage.removeItem("token");
+
         return Promise.reject(error);
     }
 );

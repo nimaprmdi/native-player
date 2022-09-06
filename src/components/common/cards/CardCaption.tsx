@@ -3,16 +3,18 @@ import Image from "../elements/Image";
 
 interface CardCaptionProps {
     id: string;
-    type?: string;
+    type: string;
     image: string;
     readMore?: boolean;
     name: string;
+    functional?: () => void;
 }
 
-const CardCaption = ({ id, type, image, readMore = true, name }: CardCaptionProps) => {
+const CardCaption = ({ id, type, image, readMore = true, name, functional }: CardCaptionProps) => {
     return (
         <Link
             to={`/single?id=${id}${type && `&type=${type}`}`}
+            onClick={() => functional && functional()}
             className="c-card__item-link w-full text-h5 font-bold hover:text-accent"
         >
             <div className="c-card__item w-full">
