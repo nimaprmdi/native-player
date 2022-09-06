@@ -6,7 +6,7 @@ const CardWide = (): JSX.Element => {
 
     return (
         <div className="w-full mb-12 px-2">
-            <img className="w-full rounded" src={blog} alt="blog" />
+            <img className="w-full rounded" src={process.env.PUBLIC_URL + blog} alt="blog" />
 
             <div className="w-full py-12 px-8 bg-gray-200 shadow-lg shadow-gray-300 rounded-b">
                 <h2 className="text-h3 leading-7">Lorem ipsum dolor sit amet consectetur.</h2>

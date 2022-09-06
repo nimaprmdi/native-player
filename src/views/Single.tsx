@@ -52,7 +52,7 @@ export default function Single({ token, setCurrentMusic, recommendedTracks }: Si
         setArtistTracks(artistTopSongs.data);
     };
 
-    const featuredImage = post && type === "track" ? (post.album && post.album.images.length > 0 ? post.album?.images[0]?.url : noThumbnail) : post.images && post.images.length > 0 ? post.images[0].url : noThumbnail;
+    const featuredImage = post && type === "track" ? (post.album && post.album.images.length > 0 ? post.album?.images[0]?.url : process.env.PUBLIC_URL + noThumbnail) : post.images && post.images.length > 0 ? post.images[0].url : noThumbnail;
 
     return (
         <section className="c-home w-full desktop:mt-10 pb-24 desktop:pb-10 pt-20 md:pt-8 desktop:pt-8 desktop:px-8 desktop:mb-56 flex justify-between flex-wrap">
