@@ -8,11 +8,11 @@ const Advertise = () => {
 
             <div className="flex gap-4 justify-center desktop:justify-start flex-wrap mt-10">
                 <a href="#" className="desktop:mr-5">
-                    <img src={google} alt="Apple store" />
+                    <img src={process.env.PUBLIC_URL + google} alt="Apple store" />
                 </a>
 
                 <a href="#">
-                    <img src={apple} alt="Apple store" />
+                    <img src={process.env.PUBLIC_URL + apple} alt="Apple store" />
                 </a>
             </div>
         </div>

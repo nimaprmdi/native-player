@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Native-Player - [Demo](https://nimaprmdi.github.io/native-player/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Native-Player is a a minimal & mobile-first theme. The best choice for people who want to publish their projects.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+-   Sass for stylesheets
+-   Connected to the spotify Web API
+-   Responsive design
+-   Cross-browser compatibility
+-   Developer friendly extendable code
+-   SEO optimized
+-   GNU GPL version 3.0 licensed
+-   …and much more
 
-### `npm start`
+See a working example at [nimaprmdi.github.io/native-player/](https://nimaprmdi.github.io/native-player/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1.  Clone the project into wanted destination location using `git clone https://github.com/nimaprmdi/native-player.git`
+2.  Change the API variables in the `/src/services/SpotifyServices.tsx` using spotify development dashboard. [Spotify-For-Developers](https://developer.spotify.com/dashboard/)
+3.  Also you can chanage the Homepage value from the `package.json` in the first line `homepage:` section
+4.  Run command `npm run build`
+5.  Tada you have the project working with the Spotify API
 
-### `npm test`
+## Theme structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```shell
+/native-player/                  # → Root of your theme
+│── .vscode/                     # → VSCode settings.json file
+│── public/                      # → Theme public folder including structure files
+│── src/                         # → Theme internal source files
+│   ├── assets3/                 # → Theme Assets files
+│   ├── components/              # → The constructed TSX components required for the interface
+│   ├── models/                  # → The interfaces of the models and global laws
+│   ├── navigation/              # → The navigation object which construct menu
+│   ├── services/                # → API handling services
+│   ├── utils/                   # → Helpers functions
+│   └── views/                   # → The primary interface coponents
+├── .gitignore/                  # → Ignoring unwanted files
+├── tailwind.config.js/          # → Tailwindcss config file
+├── tsconfig.json/               # → Configuration for the TypeScript
+├── package.json                 # → Node.js dependencies and scripts
+├── node_modules/                # → Node.js packages
+```
 
-### `npm run build`
+## Theme development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   Run `npm install` from the theme directory to install dependencies
+-   Change local variables in the `/src/services/SpotifyServices.tsx` using the provided values from the spotify dashboard [nimaprmdi.github.io/native-player/](https://nimaprmdi.github.io/native-player/)
+-   Run `npm start` and have fun
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Native-Player is licensed under [GNU GPL Version 3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-### `npm run eject`
+## Assets & Licensing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Icons by Iconify (React)
+License: MIT, https://raw.githubusercontent.com/phosphor-icons/phosphor-home/master/LICENSE
+Source: https://iconify.design/
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Map Provided in contact Page by mapbox-gl & DefinitelyTyped
+License: MIT, https://raw.githubusercontent.com/phosphor-icons/phosphor-home/master/LICENSE
+Source: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+classes and components by tailwindcss
+License: MIT, https://raw.githubusercontent.com/phosphor-icons/phosphor-home/master/LICENSE
+Source: https://github.com/tailwindlabs/tailwindcss
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Audio & Video Players by Plyr React
+License: MIT, https://raw.githubusercontent.com/phosphor-icons/phosphor-home/master/LICENSE
+Source: https://github.com/chintan9/plyr-react
 
-## Learn More
+TypeScript by Microsoft
+License: GNU GPLv2, https://opensource.org/licenses/GPL-2.0
+Source: https://www.typescriptlang.org/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Toast Notification by react-toastify
+License: MIT, https://raw.githubusercontent.com/phosphor-icons/phosphor-home/master/LICENSE
+Source: https://fkhadra.github.io/react-toastify/introduction/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Flickity by desandro
+License: GNU GPLv3, https://flickity.metafizzy.co/license.html
+Source: https://flickity.metafizzy.co/
+
+react-flickity-component by yaodingyd
+License: GNU GPLv3, https://flickity.metafizzy.co/license.html
+Source: https://github.com/yaodingyd/react-flickity-component
+
+Axios (http Axios) by axios
+License: MIT, https://raw.githubusercontent.com/phosphor-icons/phosphor-home/master/LICENSE
+Source: https://axios-http.com/
+
+## Developer Notes
+
+-   I would like to thank everybody in the open-source community
+-   If There was any issues Please submit pull requests

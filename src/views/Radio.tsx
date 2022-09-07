@@ -51,6 +51,7 @@ const Radio = ({ recommendedTracks, playListsByCats, featuredAlbums }: RadioProp
                                         image={track.album.images[0].url}
                                         title={track.name}
                                         readMore={false}
+                                        type="track"
                                     />
                                 );
                             })}
@@ -71,6 +72,7 @@ const Radio = ({ recommendedTracks, playListsByCats, featuredAlbums }: RadioProp
                                         id={playList.id}
                                         title={playList.name}
                                         image={playList.images[0].url}
+                                        type="playlist"
                                     />
                                 );
                             })}
@@ -88,6 +90,7 @@ const Radio = ({ recommendedTracks, playListsByCats, featuredAlbums }: RadioProp
                                 key={`Featured-Albums-${index}`}
                                 image={album.images[0].url}
                                 name={album.name}
+                                type="album"
                             />
                         );
                     })}

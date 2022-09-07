@@ -45,6 +45,7 @@ const Browse = ({ relatedArtists }: BrowseProps): JSX.Element => {
                                             image={artist.images[0].url}
                                             title={artist.name}
                                             readMore={false}
+                                            type="artist"
                                         />
                                     )
                                 );

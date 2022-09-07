@@ -6,16 +6,19 @@ import Plans from "../components/common/Plans";
 import Content from "../components/Content";
 import Video from "../components/common/Video";
 import spotifyServices from "../services/SpotifyServices";
-import { useSearchParams } from "react-router-dom";
 import Post from "../models/Post";
+import Recommendation from "../models/Recommendation";
+import { ArtistTopSongs } from "../models/Artists";
+import noThumbnail from "../assets/images/no-thumbnail.png";
+import { useSearchParams } from "react-router-dom";
 
 interface SingleProps {
     token: string;
-
+    recommendedTracks: Recommendation;
     setCurrentMusic: (e: string) => void;
 }
 
-export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Element {
+export default function Single({ token, setCurrentMusic, recommendedTracks }: SingleProps): JSX.Element {
     const [post, setPost] = useState<Post>({
         id: "",
         preview_url: "",
@@ -28,6 +31,7 @@ export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Ele
         genres: [],
     });
     const [isLoaded, setIsLoaded] = useState(false);
+    const [artistTracks, setArtistTracks] = useState<ArtistTopSongs>({ tracks: [] });
     const [params, setParams] = useSearchParams();
 
     const id = params.get("id");
@@ -35,42 +39,38 @@ export default function Single({ token, setCurrentMusic }: SingleProps): JSX.Ele
 
     useEffect(() => {
         token && getTrack();
+        token && type === "artist" && getArtistTopSongs();
     }, [token, id, type]);
 
     const getTrack = async () => {
         const track = await spotifyServices.getObjectById(token, id!, type!);
-        setPost(track);
+        setPost(track.data);
     };
+
+    const getArtistTopSongs = async () => {
+        const artistTopSongs = await spotifyServices.getArtistTopTracks(token, id!);
+        setArtistTracks(artistTopSongs.data);
+    };
+
+    const featuredImage = post && type === "track" ? (post.album && post.album.images.length > 0 ? post.album?.images[0]?.url : process.env.PUBLIC_URL + noThumbnail) : post.images && post.images.length > 0 ? post.images[0].url : noThumbnail;
 
     return (
         <section className="c-home w-full desktop:mt-10 pb-24 desktop:pb-10 pt-20 md:pt-8 desktop:pt-8 desktop:px-8 desktop:mb-56 flex justify-between flex-wrap">
             <div className="w-full desktop:w-4/12 px-2 desktop:px-0 order-2 desktop:order-1">
                 <Sidebar>
                     <>
-                        <img
-                            className={`w-full h-max bg-accent rounded object-cover ${isLoaded ? "block" : "hidden"}`}
-                            src={
-                                post && type === "track"
-                                    ? post.album?.images[0]?.url
-                                    : post.images && post.images[0].url
-                            }
-                            alt="post pic"
-                            onLoad={() => setIsLoaded(true)}
-                        />
+                        <img className={`w-full h-max bg-accent rounded object-cover ${isLoaded ? "block" : "hidden"}`} src={featuredImage} alt="post pic" onLoad={() => setIsLoaded(true)} />
 
-                        {!isLoaded && (
-                            <div className="c-card__loader w-full h-96 before:h-96 relative before:rounded"></div>
-                        )}
+                        {!isLoaded && <div className="c-card__loader w-full h-96 before:h-96 relative before:rounded"></div>}
                     </>
-                    <GridTitle title="New Videos" customClass="mt-8" readMore={false} badge={false} />
+
+                    <GridTitle title="New Videos" customClass="mt-8" readMore={false} badge={true} />
                     <Video />
-                    <Advertise />
-                    <Plans />
                 </Sidebar>
             </div>
 
             <div className="w-full desktop:w-8/12 order-1 desktop:order-2">
-                <Content type={type!} postData={post && post} handlePlay={setCurrentMusic} />
+                <Content type={type!} postData={post && post} handlePlay={setCurrentMusic} recommendedTracks={recommendedTracks} artistTracks={artistTracks} />
             </div>
         </section>
     );

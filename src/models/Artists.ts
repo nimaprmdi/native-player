@@ -1,3 +1,5 @@
+import { TrackImages } from "./FeaturedPlayLists";
+
 export interface ArtitstsObj {
     artists: Artists[];
 }
@@ -14,4 +16,21 @@ export default interface Artists {
 
 interface ArtistImages {
     url: string;
+}
+
+export interface ArtistTopSongs {
+    tracks: ArtistsTopSongsItems[];
+}
+
+interface ArtistsTopSongsItems {
+    album: {
+        id: string;
+        images: TrackImages[];
+        name: string;
+    };
+    id: string;
+    name: string;
+    artists: {
+        name: string;
+    };
 }
