@@ -2,8 +2,6 @@
 
 Native-Player is a a minimal & mobile-first theme. The best choice for people who want to publish their projects.
 
-![Home Page](screenshot.png)
-
 ## Features
 
 -   Sass for stylesheets
@@ -21,7 +19,7 @@ See a working example at [nimaprmdi.github.io/native-player/](https://nimaprmdi.
 
 1.  Clone the project into wanted destination location using `git clone https://github.com/nimaprmdi/native-player.git`
 2.  Change the API variables in the `/src/services/SpotifyServices.tsx` using spotify development dashboard. [Spotify-For-Developers](https://developer.spotify.com/dashboard/)
-3.  Also you can chnage the Homepage value from the `package.json` in the first line `homepage:` section
+3.  Also you can chanage the Homepage value from the `package.json` in the first line `homepage:` section
 4.  Run command `npm run build`
 5.  Tada you have the project working with the Spotify API
 
