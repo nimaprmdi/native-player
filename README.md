@@ -47,7 +47,7 @@ See a working example at [nimaprmdi.github.io/native-player/](https://nimaprmdi.
 ## Theme development
 
 -   Run `npm install` from the theme directory to install dependencies
--   Change local variables in the `/src/services/SpotifyServices.tsx` using the provided values from the spotify dashboard [nimaprmdi.github.io/native-player/](https://nimaprmdi.github.io/native-player/)
+-   Change local variables in the `/src/services/SpotifyServices.tsx` using the provided values from the spotify dashboard [https://developer.spotify.com/dashboard/](https://developer.spotify.com/dashboard/)
 -   Run `npm start` and have fun
 
 ## License
