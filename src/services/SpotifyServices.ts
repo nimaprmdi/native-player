@@ -114,7 +114,7 @@ class SpotifyServices {
   };
 
   CLIENT_ID = "96757c15e2c14a3d8b9e199048d02fbc";
-  REDIRECT_URI = "localhost:3000";
+  REDIRECT_URI = "http://localhost:3000";
   AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   RESPONSE_TYPE = "token";
 }
