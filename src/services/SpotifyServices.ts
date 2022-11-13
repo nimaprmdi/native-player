@@ -1,8 +1,8 @@
-import { ArtitstsObj } from "../models/Artists";
-import FeaturedPlayLists from "../models/FeaturedPlayLists";
-import Recommendation from "../models/Recommendation";
-import SongCategory from "../models/SongCategory";
 import http from "./httpService";
+import SongCategory from "../models/SongCategory";
+import Recommendation from "../models/Recommendation";
+import FeaturedPlayLists from "../models/FeaturedPlayLists";
+import { ArtitstsObj } from "../models/Artists";
 
 class SpotifyServices {
   private getHeaders = (token: string) => {
@@ -35,7 +35,7 @@ class SpotifyServices {
   };
 
   getPlayListsByCat = async (token: string) => {
-    const { data, status } = await http.get<SongCategory>("browse/categories/edm_dance/playlists", {
+    const { data, status } = await http.get<SongCategory>("browse/categories/0JQ5DAqbMKFHOzuVTgTizF/playlists", {
       headers: this.getHeaders(token),
       params: {
         limit: 12,
@@ -114,7 +114,7 @@ class SpotifyServices {
   };
 
   CLIENT_ID = "96757c15e2c14a3d8b9e199048d02fbc";
-  REDIRECT_URI = "http://localhost:3000";
+  REDIRECT_URI = process.env.REACT_APP_SPOTIFY_URL;
   AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   RESPONSE_TYPE = "token";
 }

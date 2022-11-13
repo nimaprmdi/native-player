@@ -12,92 +12,92 @@ import FeaturedAlbums from "../models/FeturedAlbums";
 import { handleSorting } from "../utils/helpers";
 
 interface RadioProps {
-    recommendedTracks: Recommendation;
-    playListsByCats: SongCategory;
-    featuredAlbums: FeaturedAlbums;
+  recommendedTracks: Recommendation;
+  playListsByCats: SongCategory;
+  featuredAlbums: FeaturedAlbums;
 }
 
 const Radio = ({ recommendedTracks, playListsByCats, featuredAlbums }: RadioProps): JSX.Element => {
-    const [datas, setDatas] = useState<Recommendation>();
-    const [sorting, setSorting] = useState<string>("");
+  const [datas, setDatas] = useState<Recommendation>();
+  const [sorting, setSorting] = useState<string>("");
 
-    const sortChange = (e: string) => {
-        setSorting(e);
-    };
+  const sortChange = (e: string) => {
+    setSorting(e);
+  };
 
-    useEffect(() => {
-        setDatas(recommendedTracks);
-    }, [datas, recommendedTracks]);
+  useEffect(() => {
+    setDatas(recommendedTracks);
+  }, [datas, recommendedTracks]);
 
-    useEffect(() => {
-        const sortedData = handleSorting(sorting, datas?.tracks);
-        sortedData && setDatas({ ...datas, tracks: sortedData });
-    }, [sorting]);
+  useEffect(() => {
+    const sortedData = handleSorting(sorting, datas?.tracks);
+    sortedData && setDatas({ ...datas, tracks: sortedData });
+  }, [sorting]);
 
-    return (
-        <section className="c-radio w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
-            <div className="w-full mb-8">
-                <GridTitle title="New Releases" customClass="pr-8" />
+  return (
+    <section className="c-radio w-full pt-14 pb-10 md:pt-0 desktop:pt-8 desktop:pl-8 mb-56 flex justify-between flex-wrap">
+      <div className="w-full mb-8">
+        <GridTitle title="New Releases" customClass="pr-8" />
 
-                <Cateogory onSortChange={(e) => sortChange(e)} />
-                <GridLarge>
-                    <>
-                        {datas &&
-                            datas.tracks.map((track, index) => {
-                                return (
-                                    <CardRibbon
-                                        id={track.id}
-                                        key={`recommendedTracks-track-item-${index}`}
-                                        image={track.album.images[0].url}
-                                        title={track.name}
-                                        readMore={false}
-                                        type="track"
-                                    />
-                                );
-                            })}
-                    </>
-                </GridLarge>
-            </div>
+        <Cateogory onSortChange={(e) => sortChange(e)} />
+        <GridLarge>
+          <>
+            {datas &&
+              datas.tracks.map((track, index) => {
+                return (
+                  <CardRibbon
+                    id={track.id}
+                    key={`recommendedTracks-track-item-${index}`}
+                    image={track.album.images[0].url}
+                    title={track.name}
+                    readMore={false}
+                    type="track"
+                  />
+                );
+              })}
+          </>
+        </GridLarge>
+      </div>
 
-            <div className="w-full">
-                <GridTitle title="New PlayLists" />
+      <div className="w-full">
+        <GridTitle title="New PlayLists" />
 
-                <GridLarge>
-                    <>
-                        {playListsByCats &&
-                            playListsByCats.playlists.items.map((playList) => {
-                                return (
-                                    <Card
-                                        key={playList.id}
-                                        id={playList.id}
-                                        title={playList.name}
-                                        image={playList.images[0].url}
-                                        type="playlist"
-                                    />
-                                );
-                            })}
-                    </>
-                </GridLarge>
-            </div>
+        <GridLarge>
+          <>
+            {playListsByCats &&
+              playListsByCats.playlists.items.map((playList) => {
+                return (
+                  <Card
+                    key={playList.id}
+                    id={playList.id}
+                    title={playList.name}
+                    image={playList.images[0].url}
+                    type="playlist"
+                  />
+                );
+              })}
+          </>
+        </GridLarge>
+      </div>
 
-            <div className="w-full">
-                <GridTitle title="New Releases" customClass="mt-6" />
-                <Carousel classname="desktop:pr-10">
-                    {featuredAlbums.albums.map((album, index) => {
-                        return (
-                            <CardPinkRibbon
-                                id={album.id}
-                                key={`Featured-Albums-${index}`}
-                                image={album.images[0].url}
-                                name={album.name}
-                                type="album"
-                            />
-                        );
-                    })}
-                </Carousel>
-            </div>
-        </section>
-    );
+      <div className="w-full">
+        <GridTitle title="New Releases" customClass="mt-6" />
+        <Carousel classname="desktop:pr-10">
+          {featuredAlbums.albums.map((album, index) => {
+            return (
+              <CardPinkRibbon
+                id={album.id}
+                key={`Featured-Albums-${index}`}
+                image={album.images[0].url}
+                name={album.name}
+                type="album"
+              />
+            );
+          })}
+        </Carousel>
+      </div>
+    </section>
+  );
 };
 
 export default Radio;

@@ -29,134 +29,134 @@ import "react-toastify/dist/ReactToastify.min.css";
 import * as requester from "./services/requesters";
 
 function App(): JSX.Element {
-  const [token, setToken] = useState("");
-  const [searchKey, setSearchKey] = useState("");
-  const [asideToggle, setAsideToggle] = useState(false);
-  const [featuredPlayList, setFeaturedPlayList] = useState<FeaturedPlayLists>({ name: "", tracks: { items: [] } });
-  const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
-  const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
-  const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
-  const [relatedArtists, setRelatedArtists] = useState<ArtitstsObj>({ artists: [] });
-  const [currentMusic, setCurrentMusic] = useState("");
+    const [token, setToken] = useState("");
+    const [searchKey, setSearchKey] = useState("");
+    const [asideToggle, setAsideToggle] = useState(false);
+    const [featuredPlayList, setFeaturedPlayList] = useState<FeaturedPlayLists>({ name: "", tracks: { items: [] } });
+    const [recommendedTracks, setRecommendedTracks] = useState<Recommendation>({ tracks: [] });
+    const [playListsByCats, setPlayListsByCats] = useState<SongCategory>({ playlists: { items: [] } });
+    const [featuredAlbums, setFeaturedAlbums] = useState<FeaturedAlbums>({ albums: [] });
+    const [relatedArtists, setRelatedArtists] = useState<ArtitstsObj>({ artists: [] });
+    const [currentMusic, setCurrentMusic] = useState("");
 
-  const audioRef = useRef<APITypes>(null);
-  const navigate = useNavigate();
+    const audioRef = useRef<APITypes>(null);
+    const navigate = useNavigate();
 
-  const handleToggle = () => {
-    setAsideToggle(!asideToggle);
-  };
+    const handleToggle = () => {
+        setAsideToggle(!asideToggle);
+    };
 
-  const handleAudioChange = (e: string) => {
-    setCurrentMusic(e);
+    const handleAudioChange = (e: string) => {
+        setCurrentMusic(e);
 
-    setTimeout(() => {
-      audioRef.current?.plyr.play();
-    }, 500);
-  };
+        setTimeout(() => {
+            audioRef.current?.plyr.play();
+        }, 500);
+    };
 
-  useEffect(() => {
-    if (token) {
-      requester.getRecommendedTracks(token, setRecommendedTracks);
-      requester.getPlayListsByCats(token, setPlayListsByCats);
-      requester.getFeaturedAlbums(token, setFeaturedAlbums);
-      requester.getFeaturedPlayList(token, setFeaturedPlayList);
-      requester.getRelatedArtists(token, setRelatedArtists);
-    }
-  }, [token]);
+    useEffect(() => {
+        if (token) {
+            requester.getRecommendedTracks(token, setRecommendedTracks);
+            requester.getPlayListsByCats(token, setPlayListsByCats);
+            requester.getFeaturedAlbums(token, setFeaturedAlbums);
+            requester.getFeaturedPlayList(token, setFeaturedPlayList);
+            requester.getRelatedArtists(token, setRelatedArtists);
+        }
+    }, [token]);
 
-  useEffect(() => {
-    const hash: string = window.location.hash;
-    let token: string | undefined | null = window.localStorage.getItem("token");
+    useEffect(() => {
+        const hash: string = window.location.hash;
+        let token: string | undefined | null = window.localStorage.getItem("token");
 
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        ?.split("=")[1];
+        if (!token && hash) {
+            token = hash
+                .substring(1)
+                .split("&")
+                .find((elem) => elem.startsWith("access_token"))
+                ?.split("=")[1];
 
-      window.location.hash = "";
-      window.localStorage.setItem("token", token!);
-    }
+            window.location.hash = "";
+            window.localStorage.setItem("token", token!);
+        }
 
-    setToken(token!);
-  }, []);
+        setToken(token!);
+    }, []);
 
-  useEffect(() => {
-    if (!window.localStorage.getItem("token")) {
-      setToken("");
-      // navigate("/login");
-    }
-  }, [window.location.href, token]);
+    useEffect(() => {
+        if (!window.localStorage.getItem("token")) {
+            setToken("");
+            navigate("/login");
+        }
+    }, [window.location.href, token]);
 
-  return (
-    <>
-      <ScrollToTop />
+    return (
+        <>
+            <ScrollToTop />
 
-      <div className="App min-h-screen">
-        <ToastContainer />
+            <div className="App min-h-screen">
+                <ToastContainer />
 
-        <section className="c-page__aside">
-          <Navigation asideToggle={asideToggle} />
-        </section>
+                <section className="c-page__aside">
+                    <Navigation asideToggle={asideToggle} />
+                </section>
 
-        <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
-          <Header
-            setToken={setToken}
-            searchKey={searchKey}
-            setSearchKey={setSearchKey}
-            token={token}
-            onAsideToggle={handleToggle}
-            currentMusic={currentMusic}
-            audioRef={audioRef}
-          />
+                <section className={`c-page__content ${!asideToggle && "md:ml-14"}`}>
+                    <Header
+                        setToken={setToken}
+                        searchKey={searchKey}
+                        setSearchKey={setSearchKey}
+                        token={token}
+                        onAsideToggle={handleToggle}
+                        currentMusic={currentMusic}
+                        audioRef={audioRef}
+                    />
 
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <FeaturedPlayListsContext.Provider value={featuredPlayList}>
-                  <Home
-                    recommendedTracks={recommendedTracks}
-                    playListsByCats={playListsByCats}
-                    featuredAlbums={featuredAlbums}
-                  />
-                </FeaturedPlayListsContext.Provider>
-              }
-            />
-            <Route
-              path="/radio"
-              element={
-                <Radio
-                  recommendedTracks={recommendedTracks}
-                  playListsByCats={playListsByCats}
-                  featuredAlbums={featuredAlbums}
-                />
-              }
-            />
-            <Route path="/browse" element={<Browse relatedArtists={relatedArtists.artists} />} />
-            <Route path="/404" element={<NotFound />} />
-            {/* <Route path="/blog" element={<Blog />} /> */}
-            <Route path="/contact" element={<Contact />} />
-            <Route
-              path="/single"
-              element={
-                <Single
-                  token={token}
-                  setCurrentMusic={(e) => handleAudioChange(e)}
-                  recommendedTracks={recommendedTracks}
-                />
-              }
-            />
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <FeaturedPlayListsContext.Provider value={featuredPlayList}>
+                                    <Home
+                                        featuredAlbums={featuredAlbums}
+                                        playListsByCats={playListsByCats}
+                                        recommendedTracks={recommendedTracks}
+                                    />
+                                </FeaturedPlayListsContext.Provider>
+                            }
+                        />
+                        <Route
+                            path="/radio"
+                            element={
+                                <Radio
+                                    recommendedTracks={recommendedTracks}
+                                    playListsByCats={playListsByCats}
+                                    featuredAlbums={featuredAlbums}
+                                />
+                            }
+                        />
+                        <Route path="/browse" element={<Browse relatedArtists={relatedArtists.artists} />} />
+                        <Route path="/404" element={<NotFound />} />
+                        {/* <Route path="/blog" element={<Blog />} /> */}
+                        <Route path="/contact" element={<Contact />} />
+                        <Route
+                            path="/single"
+                            element={
+                                <Single
+                                    token={token}
+                                    setCurrentMusic={(e) => handleAudioChange(e)}
+                                    recommendedTracks={recommendedTracks}
+                                />
+                            }
+                        />
 
-            <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={<Login />} />
 
-            <Route path="*" element={<Navigate replace to="/404" />} />
-          </Routes>
-        </section>
-      </div>
-    </>
-  );
+                        <Route path="*" element={<Navigate replace to="/404" />} />
+                    </Routes>
+                </section>
+            </div>
+        </>
+    );
 }
 
 export default App;
