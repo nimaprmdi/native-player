@@ -7,9 +7,7 @@ const Login = () => {
                 <h1 className="text-h1 md:text-text-huge w-full leading-10 mt-0">Please Login To Spotify</h1>
 
                 <div className="w-full flex justify-center">
-                    <p className="w-4/5 desktop:w-2/5 text-h4 leading-8">
-                        To use this project you have to login to your spotify account.
-                    </p>
+                    <p className="w-4/5 desktop:w-2/5 text-h4 leading-8">To use this project you have to login to your spotify account.</p>
                 </div>
 
                 <a

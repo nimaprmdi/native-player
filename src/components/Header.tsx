@@ -24,7 +24,17 @@ const Header = ({ onAsideToggle, searchKey, setSearchKey, token, currentMusic, a
 
     const renderArtist = () => {
         const artistSearch = artists.map((artist, index) => {
-            return <CardCaption key={index} id={artist.id} readMore={false} name={artist.name ? artist.name : "Artist Picture"} image={artist.images.length > 0 ? artist.images[0].url : ""} type="artist" functional={() => setVisibleModal(false)} />;
+            return (
+                <CardCaption
+                    key={index}
+                    id={artist.id}
+                    readMore={false}
+                    name={artist.name ? artist.name : "Artist Picture"}
+                    image={artist.images.length > 0 ? artist.images[0].url : ""}
+                    type="artist"
+                    functional={() => setVisibleModal(false)}
+                />
+            );
         });
 
         return artistSearch;
@@ -67,7 +77,10 @@ const Header = ({ onAsideToggle, searchKey, setSearchKey, token, currentMusic, a
                     <>
                         {!token ? (
                             <>
-                                <a className="o-btn items-center mr-2 md:mr-8 hidden md:flex o-btn--ghost" href={`${spotifyService.AUTH_ENDPOINT}?client_id=${spotifyService.CLIENT_ID}&redirect_uri=${spotifyService.REDIRECT_URI}&response_type=${spotifyService.RESPONSE_TYPE}`}>
+                                <a
+                                    className="o-btn items-center mr-2 md:mr-8 hidden md:flex o-btn--ghost"
+                                    href={`${spotifyService.AUTH_ENDPOINT}?client_id=${spotifyService.CLIENT_ID}&redirect_uri=${spotifyService.REDIRECT_URI}&response_type=${spotifyService.RESPONSE_TYPE}`}
+                                >
                                     Login <Icon icon="ep:arrow-right" />
                                 </a>
                             </>
