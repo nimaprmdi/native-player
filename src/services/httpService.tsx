@@ -30,8 +30,8 @@ axsiosSpotifyInstance.interceptors.response.use(
 
         window.localStorage.removeItem("token");
 
-        if (window.location.pathname !== "/login") {
-            window.location.href = "/login";
+        if (window.location.pathname !== "/native-player/#/login") {
+            window.location.href = "/native-player/#/login";
         }
 
         return Promise.reject(error);

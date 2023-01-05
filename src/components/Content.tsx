@@ -18,8 +18,6 @@ interface ContentProps {
 }
 
 const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }: ContentProps): JSX.Element => {
-    console.log(postData);
-
     return (
         <article className="w-full mb-8">
             <h2 className="c-content__title text-h2 pl-4 leading-8">
@@ -35,11 +33,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                                 {postData.artists &&
                                     postData.artists.map((artist, index) => {
                                         return (
-                                            <Link
-                                                key={artist.id}
-                                                className="mr-2 text-gray-500 capitalize"
-                                                to={`/single?id=${artist.id}&type=artist`}
-                                            >
+                                            <Link key={artist.id} className="mr-2 text-gray-500 capitalize" to={`/single?id=${artist.id}&type=artist`}>
                                                 {artist.name}
                                                 {postData.artists && index < postData.artists.length - 1 ? "," : ""}
                                             </Link>
@@ -54,8 +48,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                     <div className="flex items-center mr-1 desktop:mr-6">
                         <Icon className="text-gray-500" icon="akar-icons:clock" />
                         <span className="text-gray-500 ml-1">
-                            Released in{" "}
-                            {postData.album && type === "track" ? postData.album.release_date : postData.release_date}
+                            Released in {postData.album && type === "track" ? postData.album.release_date : postData.release_date}
                         </span>
                     </div>
                 )}
@@ -64,17 +57,10 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                     <>
                         <div className="flex items-center mr-1 desktop:mr-6">
                             <Icon className="text-gray-500" icon="akar-icons:music" />
-                            <span className="text-gray-500 ml-1">
-                                Total Time {postData.duration_ms && millisecondsToMinutes(postData.duration_ms)}
-                            </span>
+                            <span className="text-gray-500 ml-1">Total Time {postData.duration_ms && millisecondsToMinutes(postData.duration_ms)}</span>
                         </div>
 
-                        <iframe
-                            src={`https://open.spotify.com/embed/track/${postData.id}`}
-                            width="100%"
-                            height="300px"
-                            className="mt-8"
-                        ></iframe>
+                        <iframe src={`https://open.spotify.com/embed/track/${postData.id}`} width="100%" height="300px" className="mt-8"></iframe>
                     </>
                 )}
             </div>
@@ -93,12 +79,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                                 />
                             )}
 
-                            <SingleCards
-                                icon="dashicons:album"
-                                title="go to album"
-                                btnText="go now"
-                                url={`/single?id=${postData.album?.id}&type=album`}
-                            />
+                            <SingleCards icon="dashicons:album" title="go to album" btnText="go now" url={`/single?id=${postData.album?.id}&type=album`} />
 
                             <SingleCards
                                 icon="bi:person-lines-fill"
@@ -119,13 +100,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                                 isLink={true}
                             />
 
-                            <SingleCards
-                                icon="ph:brackets-curly-fill"
-                                title="Label Name"
-                                btnText={postData.label}
-                                url="#"
-                                isLink={true}
-                            />
+                            <SingleCards icon="ph:brackets-curly-fill" title="Label Name" btnText={postData.label} url="#" isLink={true} />
                         </>
                     )}
 
@@ -134,11 +109,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                             <SingleCards
                                 icon="ic:baseline-category"
                                 title="Genres"
-                                btnText={
-                                    postData.genres && postData.genres.length > 0
-                                        ? postData.genres?.map((genre) => genre).toString()
-                                        : "no data found"
-                                }
+                                btnText={postData.genres && postData.genres.length > 0 ? postData.genres?.map((genre) => genre).toString() : "no data found"}
                                 url={postData.external_urls?.spotify || ""}
                                 isLink={true}
                             />
@@ -193,9 +164,7 @@ const Content = ({ postData, type, handlePlay, recommendedTracks, artistTracks }
                                             <>
                                                 {index < 8 && (
                                                     <CardPinkRibbon
-                                                        key={`recommended-artist-tracks-content-${
-                                                            song.id + Math.random() * 1000
-                                                        }`}
+                                                        key={`recommended-artist-tracks-content-${song.id + Math.random() * 1000}`}
                                                         id={song.id}
                                                         image={song.album.images[0].url}
                                                         name={song.name}

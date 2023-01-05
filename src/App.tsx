@@ -76,18 +76,22 @@ function App(): JSX.Element {
                 ?.split("=")[1];
 
             window.location.hash = "";
-            window.localStorage.setItem("token", token!);
+            navigate("/");
+
+            if (token !== null || token !== undefined) {
+                window.localStorage.setItem("token", token!);
+            }
         }
 
         setToken(token!);
     }, []);
 
     useEffect(() => {
-        if (!window.localStorage.getItem("token")) {
+        if (window.localStorage.getItem("token") === null || !window.localStorage.getItem("token")) {
             setToken("");
             navigate("/login");
         }
-    }, [window.location.href, token]);
+    }, [window.location.href, token, window.localStorage.getItem("token")]);
 
     return (
         <>
@@ -116,23 +120,13 @@ function App(): JSX.Element {
                             path="/"
                             element={
                                 <FeaturedPlayListsContext.Provider value={featuredPlayList}>
-                                    <Home
-                                        featuredAlbums={featuredAlbums}
-                                        playListsByCats={playListsByCats}
-                                        recommendedTracks={recommendedTracks}
-                                    />
+                                    <Home featuredAlbums={featuredAlbums} playListsByCats={playListsByCats} recommendedTracks={recommendedTracks} />
                                 </FeaturedPlayListsContext.Provider>
                             }
                         />
                         <Route
                             path="/radio"
-                            element={
-                                <Radio
-                                    recommendedTracks={recommendedTracks}
-                                    playListsByCats={playListsByCats}
-                                    featuredAlbums={featuredAlbums}
-                                />
-                            }
+                            element={<Radio recommendedTracks={recommendedTracks} playListsByCats={playListsByCats} featuredAlbums={featuredAlbums} />}
                         />
                         <Route path="/browse" element={<Browse relatedArtists={relatedArtists.artists} />} />
                         <Route path="/404" element={<NotFound />} />
@@ -140,18 +134,12 @@ function App(): JSX.Element {
                         <Route path="/contact" element={<Contact />} />
                         <Route
                             path="/single"
-                            element={
-                                <Single
-                                    token={token}
-                                    setCurrentMusic={(e) => handleAudioChange(e)}
-                                    recommendedTracks={recommendedTracks}
-                                />
-                            }
+                            element={<Single token={token} setCurrentMusic={(e) => handleAudioChange(e)} recommendedTracks={recommendedTracks} />}
                         />
 
                         <Route path="/login" element={<Login />} />
 
-                        <Route path="*" element={<Navigate replace to="/404" />} />
+                        {/* <Route path="*" element={<Navigate replace to="/404" />} /> */}
                     </Routes>
                 </section>
             </div>
