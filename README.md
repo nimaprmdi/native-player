@@ -1,6 +1,6 @@
 # Native-Player - [Demo](https://nimaprmdi.github.io/native-player/)
 
-Native-Player is a a minimal & mobile-first theme. The best choice for people who want to publish their projects.
+Native-Player is a Spotify Player using Spotify API
 
 ## Features
 
